@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pueblo County Bar Association</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --night:    #1B2A4A;
+      --night-lt: #2D3E5F;
+      --gold:     #C8A97E;
+      --gold-dk:  #A8845A;
+      --lime:     #F7F5F0;
+      --white:    #FFFFFF;
+      --gray:     #6B7280;
+      --gray-lt:  #E5E3DE;
+      --body-txt: #1F2937;
+      --ff-serif: 'Cormorant Garamond', Georgia, serif;
+      --ff-sans:  'Inter', system-ui, sans-serif;
+      --radius:   6px;
+      --shadow:   0 2px 12px rgba(27,42,74,0.10);
+      --shadow-lg:0 8px 32px rgba(27,42,74,0.16);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--ff-sans);
+      background: var(--lime);
+      color: var(--body-txt);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ─────────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(27,42,74,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(200,169,126,0.20);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none;
+    }
+    .nav-logo-seal {
+      width: 40px; height: 40px; flex-shrink: 0;
+    }
+    .nav-logo-text { line-height: 1.15; }
+    .nav-logo-text .org { font-family: var(--ff-serif); font-size: 1.05rem; font-weight: 600; color: var(--white); letter-spacing: 0.01em; white-space: nowrap; }
+    .nav-logo-text .loc { font-size: 0.65rem; font-weight: 500; color: var(--gold); letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; }
+    @media (max-width: 480px) {
+      .nav-logo-text .org { font-size: 0.9rem; }
+      .nav-logo-text .loc { display: none; }
+      .nav { padding: 0 1rem; }
+    }
+    .nav-links { display: flex; align-items: center; gap: 0.25rem; }
+    .nav-links a {
+      font-size: 0.8rem; font-weight: 500; color: rgba(255,255,255,0.75);
+      text-decoration: none; padding: 0.4rem 0.8rem; border-radius: 4px;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); background: rgba(200,169,126,0.12); }
+    .nav-cta {
+      background: var(--gold); color: var(--night) !important;
+      font-weight: 600 !important; border-radius: 4px;
+      padding: 0.45rem 1rem !important;
+    }
+    .nav-cta:hover { background: var(--gold-dk) !important; color: var(--white) !important; }
+
+    /* ── HERO ────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(165deg, #0D1B2E 0%, #1B2A4A 45%, #253654 100%);
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative; overflow: hidden;
+      padding-top: 68px;
+    }
+
+    /* Topographic river lines */
+    .hero-topo {
+      position: absolute; inset: 0; pointer-events: none; opacity: 0.07;
+    }
+
+    /* Courthouse silhouette */
+    .hero-courthouse {
+      position: absolute; bottom: 0; right: 0;
+      width: 55%; max-width: 700px;
+      opacity: 0.09; pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative; z-index: 2;
+      max-width: 1200px; margin: 0 auto;
+      padding: 5rem 2rem 6rem;
+    }
+    .hero-eyebrow {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1.25rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block; width: 32px; height: 1px; background: var(--gold);
+    }
+    .hero-h1 {
+      font-family: var(--ff-serif);
+      font-size: clamp(2.8rem, 6vw, 5.2rem);
+      font-weight: 600; line-height: 1.06;
+      color: var(--white);
+      max-width: 720px;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+    .hero-h1 em { font-style: italic; color: var(--gold); }
+    .hero-sub {
+      font-size: clamp(1rem, 1.5vw, 1.15rem);
+      color: rgba(255,255,255,0.65);
+      max-width: 520px;
+      margin-bottom: 3rem;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+    .hero-paths {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+    }
+    .path-btn {
+      display: flex; flex-direction: column;
+      padding: 1.25rem 1.75rem;
+      border-radius: var(--radius);
+      text-decoration: none;
+      min-width: 220px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: none; cursor: pointer;
+    }
+    .path-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .path-btn .label {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; margin-bottom: 0.35rem; opacity: 0.75;
+    }
+    .path-btn .action {
+      font-size: 1.05rem; font-weight: 600;
+    }
+    .path-btn .sub {
+      font-size: 0.78rem; margin-top: 0.2rem; opacity: 0.65; font-weight: 400;
+    }
+    .path-public {
+      background: var(--gold);
+      color: var(--night);
+    }
+    .path-member {
+      background: rgba(255,255,255,0.08);
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(8px);
+    }
+    .path-member:hover { background: rgba(255,255,255,0.13); }
+
+    .hero-stats {
+      position: absolute; bottom: 2.5rem; right: 2rem; z-index: 2;
+      display: flex; gap: 2.5rem;
+    }
+    .hero-stat { text-align: right; }
+    .hero-stat .num {
+      font-family: var(--ff-serif); font-size: 2.2rem; font-weight: 600;
+      color: var(--white); line-height: 1;
+    }
+    .hero-stat .lbl {
+      font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--gold); margin-top: 0.2rem;
+    }
+
+    /* ── SECTION SHARED ──────────────────────────────── */
+    section { padding: 5rem 2rem; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-eyebrow {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--gold-dk);
+      margin-bottom: 0.75rem;
+    }
+    .section-h2 {
+      font-family: var(--ff-serif); font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+      font-weight: 600; color: var(--night); line-height: 1.15;
+      margin-bottom: 0.75rem;
+    }
+    .section-lead {
+      font-size: 1.05rem; color: var(--gray); max-width: 600px;
+      font-weight: 400; line-height: 1.7; margin-bottom: 3rem;
+    }
+
+    /* ── TWO-PATH STRIP ──────────────────────────────── */
+    .paths-strip {
+      background: var(--white);
+      padding: 0;
+      border-bottom: 1px solid var(--gray-lt);
+    }
+    .paths-strip .section-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+    }
+    .path-card {
+      padding: 3.5rem 3rem;
+      text-decoration: none;
+      transition: background 0.2s;
+      position: relative;
+    }
+    .path-card:first-child { border-right: 1px solid var(--gray-lt); }
+    .path-card:hover { background: var(--lime); }
+    .path-card-icon {
+      width: 48px; height: 48px; margin-bottom: 1.5rem;
+      background: var(--night); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .path-card-icon svg { width: 24px; height: 24px; stroke: var(--gold); }
+    .path-card h3 {
+      font-family: var(--ff-serif); font-size: 1.6rem; font-weight: 600;
+      color: var(--night); margin-bottom: 0.5rem;
+    }
+    .path-card p { font-size: 0.92rem; color: var(--gray); line-height: 1.65; margin-bottom: 1.5rem; }
+    .path-card .link-row {
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em;
+      color: var(--gold-dk); text-transform: uppercase;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .path-card .link-row::after { content: '→'; }
+
+    /* ── FIND A LAWYER ───────────────────────────────── */
+    .find-section { background: var(--lime); }
+    .filter-row {
+      display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 2.5rem;
+    }
+    .filter-chip {
+      padding: 0.45rem 1rem; border-radius: 999px;
+      font-size: 0.78rem; font-weight: 500;
+      border: 1.5px solid var(--gray-lt);
+      background: var(--white); color: var(--gray);
+      cursor: pointer; transition: all 0.15s; user-select: none;
+    }
+    .filter-chip:hover, .filter-chip.active {
+      border-color: var(--night); background: var(--night); color: var(--white);
+    }
+    .filter-chip.active { font-weight: 600; }
+    .lawyers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .lawyer-card {
+      background: var(--white); border-radius: 10px;
+      padding: 1.75rem; box-shadow: var(--shadow);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex; flex-direction: column;
+    }
+    .lawyer-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+    .lawyer-avatar {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--night), var(--night-lt));
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--ff-serif); font-size: 1.4rem; font-weight: 600;
+      color: var(--gold); margin-bottom: 1rem; flex-shrink: 0;
+    }
+    .lawyer-name {
+      font-family: var(--ff-serif); font-size: 1.2rem; font-weight: 600;
+      color: var(--night); margin-bottom: 0.2rem;
+    }
+    .lawyer-firm { font-size: 0.8rem; color: var(--gray); margin-bottom: 0.75rem; }
+    .lawyer-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.25rem; }
+    .lawyer-tag {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; padding: 0.25rem 0.65rem;
+      background: var(--lime); color: var(--night-lt);
+      border-radius: 4px; border: 1px solid var(--gray-lt);
+    }
+    .lawyer-contact {
+      margin-top: auto; padding-top: 1rem;
+      border-top: 1px solid var(--gray-lt);
+      font-size: 0.8rem; color: var(--gray);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .lawyer-contact a {
+      font-size: 0.78rem; font-weight: 600; color: var(--gold-dk);
+      text-decoration: none; letter-spacing: 0.04em;
+    }
+    .lawyers-cta {
+      text-align: center; margin-top: 1rem;
+    }
+
+    /* ── EVENTS ──────────────────────────────────────── */
+    .events-section { background: var(--night); }
+    .events-section .section-eyebrow { color: var(--gold); }
+    .events-section .section-h2 { color: var(--white); }
+    .events-section .section-lead { color: rgba(255,255,255,0.55); }
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.25rem;
+    }
+    .event-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 10px; padding: 1.75rem;
+      display: flex; gap: 1.25rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .event-card:hover {
+      background: rgba(255,255,255,0.09);
+      border-color: rgba(200,169,126,0.35);
+    }
+    .event-date-block {
+      flex-shrink: 0;
+      width: 56px; text-align: center;
+      background: rgba(200,169,126,0.12);
+      border: 1px solid rgba(200,169,126,0.25);
+      border-radius: 8px; padding: 0.5rem 0.3rem;
+    }
+    .event-date-block .mo {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--gold);
+    }
+    .event-date-block .dy {
+      font-family: var(--ff-serif); font-size: 1.8rem; font-weight: 600;
+      color: var(--white); line-height: 1;
+    }
+    .event-body { flex: 1; }
+    .event-type {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 0.35rem;
+    }
+    .event-title {
+      font-family: var(--ff-serif); font-size: 1.1rem; font-weight: 600;
+      color: var(--white); margin-bottom: 0.4rem; line-height: 1.3;
+    }
+    .event-meta { font-size: 0.78rem; color: rgba(255,255,255,0.45); line-height: 1.5; }
+    .event-register {
+      margin-top: 0.75rem;
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em;
+      color: var(--gold); text-decoration: none; text-transform: uppercase;
+      display: flex; align-items: center; gap: 0.3rem;
+    }
+    .event-register::after { content: '→'; }
+
+    /* ── ABOUT / MISSION ─────────────────────────────── */
+    .about-section { background: var(--white); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+    }
+    .about-visual {
+      position: relative;
+    }
+    .about-plaque {
+      background: var(--night);
+      border-radius: 12px;
+      padding: 3rem 2.5rem;
+      position: relative; overflow: hidden;
+    }
+    .about-plaque::before {
+      content: '';
+      position: absolute; top: -40px; right: -40px;
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      background: rgba(200,169,126,0.08);
+    }
+    .about-plaque-year {
+      font-family: var(--ff-serif); font-size: 5rem; font-weight: 700;
+      color: rgba(200,169,126,0.15); line-height: 1;
+      position: absolute; bottom: 1.5rem; right: 1.5rem;
+    }
+    .about-plaque blockquote {
+      font-family: var(--ff-serif); font-size: 1.4rem; font-style: italic;
+      color: var(--white); line-height: 1.5; margin-bottom: 1.5rem;
+      position: relative; z-index: 1;
+    }
+    .about-plaque cite {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--gold); font-style: normal;
+    }
+    .about-content h3 {
+      font-family: var(--ff-serif); font-size: 1.5rem; color: var(--night);
+      margin-bottom: 1rem; font-weight: 600;
+    }
+    .about-content p {
+      font-size: 0.95rem; color: var(--gray); line-height: 1.75;
+      margin-bottom: 1.25rem;
+    }
+    .mission-pillars {
+      display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.75rem;
+    }
+    .pillar {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 1rem 1.25rem; background: var(--lime); border-radius: 8px;
+    }
+    .pillar-icon {
+      width: 32px; height: 32px; background: var(--night); border-radius: 6px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .pillar-icon svg { width: 16px; height: 16px; stroke: var(--gold); }
+    .pillar-text strong { font-size: 0.85rem; font-weight: 600; color: var(--night); display: block; }
+    .pillar-text span { font-size: 0.8rem; color: var(--gray); }
+
+    /* ── LEADERSHIP ──────────────────────────────────── */
+    .leadership-section { background: var(--lime); }
+    .leadership-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.25rem;
+    }
+    .leader-card {
+      background: var(--white); border-radius: 10px;
+      padding: 1.75rem; box-shadow: var(--shadow);
+      text-align: center;
+    }
+    .leader-avatar {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--night), var(--night-lt));
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--ff-serif); font-size: 1.5rem; font-weight: 600;
+      color: var(--gold); margin: 0 auto 1rem;
+    }
+    .leader-name { font-family: var(--ff-serif); font-size: 1.15rem; color: var(--night); font-weight: 600; margin-bottom: 0.2rem; }
+    .leader-role { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-dk); }
+
+    /* ── RESOURCES STRIP ─────────────────────────────── */
+    .resources-section { background: var(--night-lt); padding: 4rem 2rem; }
+    .resources-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .resource-link {
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 8px; padding: 1.5rem; text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    .resource-link:hover { background: rgba(255,255,255,0.13); border-color: rgba(200,169,126,0.4); }
+    .resource-link .r-icon { font-size: 1.4rem; }
+    .resource-link .r-label { font-size: 0.82rem; font-weight: 600; color: var(--white); }
+    .resource-link .r-desc { font-size: 0.73rem; color: rgba(255,255,255,0.45); line-height: 1.4; }
+    .resources-section .section-h2 { color: var(--white); }
+    .resources-section .section-eyebrow { color: var(--gold); }
+
+    /* ── FOOTER ──────────────────────────────────────── */
+    .footer {
+      background: #0D1B2E;
+      padding: 3.5rem 2rem 2rem;
+      color: rgba(255,255,255,0.5);
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-brand .tagline {
+      font-family: var(--ff-serif); font-style: italic;
+      font-size: 1.05rem; color: rgba(255,255,255,0.4);
+      margin-top: 0.75rem; line-height: 1.5;
+    }
+    .footer-col h4 {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .footer-col a {
+      display: block; font-size: 0.82rem; color: rgba(255,255,255,0.45);
+      text-decoration: none; margin-bottom: 0.5rem;
+      transition: color 0.15s;
+    }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 1.75rem; flex-wrap: wrap; gap: 0.5rem;
+    }
+    .footer-bottom p { font-size: 0.75rem; }
+    .footer-bottom .demo-badge {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--gold);
+      border: 1px solid rgba(200,169,126,0.3); padding: 0.25rem 0.75rem; border-radius: 4px;
+    }
+
+    /* ── BUTTONS ─────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.5rem; border-radius: var(--radius);
+      font-size: 0.82rem; font-weight: 600; letter-spacing: 0.05em;
+      text-transform: uppercase; text-decoration: none; cursor: pointer;
+      border: none; transition: all 0.2s;
+    }
+    .btn-primary { background: var(--night); color: var(--white); }
+    .btn-primary:hover { background: var(--night-lt); }
+    .btn-gold { background: var(--gold); color: var(--night); }
+    .btn-gold:hover { background: var(--gold-dk); color: var(--white); }
+    .btn-outline { background: transparent; color: var(--night); border: 1.5px solid var(--night); }
+    .btn-outline:hover { background: var(--night); color: var(--white); }
+
+    /* ── MOBILE NAV TOGGLE ───────────────────────────── */
+    .nav-mobile-toggle {
+      display: none; background: none; border: none; cursor: pointer;
+      flex-direction: column; gap: 5px; padding: 4px;
+    }
+    .nav-mobile-toggle span {
+      display: block; width: 24px; height: 2px; background: var(--white);
+      border-radius: 2px; transition: transform 0.25s, opacity 0.25s;
+    }
+    .nav-mobile-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-mobile-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-mobile-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── MOBILE DRAWER ───────────────────────────────── */
+    .nav-drawer {
+      display: none;
+      position: fixed; left: 0; right: 0; z-index: 98;
+      background: rgba(18,30,52,0.98);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(200,169,126,0.2);
+      padding: 1rem 1.5rem 1.5rem;
+      flex-direction: column; gap: 0.25rem;
+      top: 68px;
+    }
+    body.has-announcement .nav-drawer { top: calc(68px + 36px); }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a {
+      font-size: 1rem; font-weight: 500; color: rgba(255,255,255,0.8);
+      text-decoration: none; padding: 0.75rem 0.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      letter-spacing: 0.02em; transition: color 0.15s;
+    }
+    .nav-drawer a:last-child { border-bottom: none; }
+    .nav-drawer a:hover { color: var(--white); }
+    .nav-drawer .drawer-cta {
+      margin-top: 0.75rem;
+      background: var(--gold); color: var(--night) !important;
+      font-weight: 700 !important; border-radius: 6px;
+      text-align: center; padding: 0.9rem !important;
+      border-bottom: none !important; letter-spacing: 0.05em;
+    }
+    .nav-drawer .drawer-cta:hover { background: var(--gold-dk); color: var(--white) !important; }
+
+    /* ── ANNOUNCEMENT BANNER ─────────────────────────── */
+    .announcement {
+      background: var(--gold); color: var(--night);
+      text-align: center; padding: 0.6rem 3rem;
+      font-size: 0.8rem; font-weight: 600;
+      position: fixed; top: 68px; left: 0; right: 0; z-index: 99;
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      white-space: nowrap; overflow: hidden;
+      min-height: 36px;
+    }
+    .announcement a { color: var(--night); font-weight: 700; text-decoration: underline; }
+    .announcement-close {
+      position: absolute; right: 0.75rem;
+      background: none; border: none; cursor: pointer;
+      font-size: 1.1rem; color: var(--night); opacity: 0.6; line-height: 1;
+    }
+    .announcement-close:hover { opacity: 1; }
+    .announcement .ann-full { display: inline; }
+    .announcement .ann-short { display: none; }
+    body.has-announcement .hero { padding-top: calc(68px + 36px); }
+    body.has-announcement .nav { top: 36px; }
+    @media (max-width: 600px) {
+      .announcement { font-size: 0.72rem; padding: 0.6rem 2.5rem; }
+      .announcement .ann-full { display: none; }
+      .announcement .ann-short { display: inline; }
+    }
+
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .nav-mobile-toggle { display: flex; }
+      .hero-stats { display: none; }
+    }
+    @media (max-width: 600px) {
+      .paths-strip .section-inner { grid-template-columns: 1fr; }
+      .path-card:first-child { border-right: none; border-bottom: 1px solid var(--gray-lt); }
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-h1 { font-size: 2.4rem; }
+    }
+  </style>
+</head>
+<body class="has-announcement">
+
+  <!-- Announcement banner -->
+  <div class="announcement" id="announcement">
+    <span class="ann-full">📅 &nbsp;Annual Dinner — Saturday, June 28, 2025 · Registration now open &nbsp;<a href="#events">Register →</a></span>
+    <span class="ann-short">📅 Annual Dinner June 28 &nbsp;<a href="#events">Register →</a></span>
+    <button class="announcement-close" onclick="closeAnnouncement()">✕</button>
+  </div>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <a class="nav-logo" href="#">
+      <svg class="nav-logo-seal" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="19" stroke="#C8A97E" stroke-width="1.5"/>
+        <circle cx="20" cy="20" r="14" stroke="#C8A97E" stroke-width="0.75" stroke-dasharray="2 2"/>
+        <text x="20" y="24" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="11" font-weight="700" fill="#C8A97E">PCBA</text>
+      </svg>
+      <div class="nav-logo-text">
+        <div class="org">Pueblo County Bar Association</div>
+        <div class="loc">Established · Pueblo, Colorado</div>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="#find">Find a Lawyer</a>
+      <a href="#events">Events</a>
+      <a href="#about">About</a>
+      <a href="#leadership">Leadership</a>
+      <a href="#resources">Resources</a>
+      <a href="#membership" class="nav-cta">Join / Renew</a>
+    </div>
+    <button class="nav-mobile-toggle" id="menuToggle" aria-label="Menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile drawer -->
+  <div class="nav-drawer" id="navDrawer">
+    <a href="#find" onclick="closeMenu()">Find a Lawyer</a>
+    <a href="#events" onclick="closeMenu()">Events</a>
+    <a href="#about" onclick="closeMenu()">About</a>
+    <a href="#leadership" onclick="closeMenu()">Leadership</a>
+    <a href="#resources" onclick="closeMenu()">Resources</a>
+    <a href="#membership" class="drawer-cta" onclick="closeMenu()">Join / Renew</a>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <!-- Topographic river lines (SVG) -->
+    <svg class="hero-topo" viewBox="0 0 1400 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-100,400 C150,380 250,420 400,395 S650,370 800,400 S1050,430 1200,410 S1350,390 1500,405" stroke="#C8A97E" stroke-width="1.5" fill="none"/>
+      <path d="M-100,450 C120,425 280,460 450,440 S700,415 850,445 S1100,475 1300,455 S1420,440 1500,450" stroke="#C8A97E" stroke-width="1" fill="none"/>
+      <path d="M-100,350 C200,330 300,365 480,345 S730,320 880,350 S1130,380 1350,360 S1430,345 1500,355" stroke="#C8A97E" stroke-width="0.75" fill="none"/>
+      <path d="M-100,500 C100,480 260,515 430,495 S680,468 830,498 S1080,528 1280,508 S1400,492 1500,500" stroke="#C8A97E" stroke-width="0.5" fill="none"/>
+      <path d="M-100,300 C180,282 320,310 500,295 S760,272 910,300 S1160,328 1380,310 S1440,296 1500,303" stroke="#C8A97E" stroke-width="0.5" fill="none"/>
+    </svg>
+
+    <!-- Courthouse silhouette -->
+    <svg class="hero-courthouse" viewBox="0 0 700 500" xmlns="http://www.w3.org/2000/svg">
+      <!-- Base building -->
+      <rect x="50" y="280" width="600" height="220" fill="#C8A97E"/>
+      <!-- Steps -->
+      <rect x="30" y="460" width="640" height="15" fill="#C8A97E"/>
+      <rect x="10" y="470" width="680" height="15" fill="#C8A97E"/>
+      <!-- Main columns -->
+      <rect x="100" y="200" width="30" height="80" fill="#C8A97E"/>
+      <rect x="180" y="200" width="30" height="80" fill="#C8A97E"/>
+      <rect x="260" y="200" width="30" height="80" fill="#C8A97E"/>
+      <rect x="340" y="200" width="30" height="80" fill="#C8A97E"/>
+      <rect x="420" y="200" width="30" height="80" fill="#C8A97E"/>
+      <rect x="500" y="200" width="30" height="80" fill="#C8A97E"/>
+      <rect x="580" y="200" width="30" height="80" fill="#C8A97E"/>
+      <!-- Entablature -->
+      <rect x="70" y="185" width="560" height="20" fill="#C8A97E"/>
+      <!-- Pediment -->
+      <polygon points="70,185 350,90 630,185" fill="#C8A97E"/>
+      <!-- Pediment detail -->
+      <polygon points="120,185 350,108 580,185" fill="rgba(27,42,74,0.3)"/>
+      <!-- Dome base -->
+      <rect x="280" y="80" width="140" height="30" fill="#C8A97E"/>
+      <!-- Drum -->
+      <ellipse cx="350" cy="80" rx="60" ry="15" fill="#C8A97E"/>
+      <!-- Dome -->
+      <ellipse cx="350" cy="50" rx="55" ry="35" fill="#C8A97E"/>
+      <!-- Lantern -->
+      <rect x="338" y="15" width="24" height="35" rx="2" fill="#C8A97E"/>
+      <!-- Finial -->
+      <line x1="350" y1="15" x2="350" y2="0" stroke="#C8A97E" stroke-width="3"/>
+      <!-- Windows -->
+      <rect x="120" y="310" width="50" height="70" rx="2" fill="rgba(27,42,74,0.4)"/>
+      <rect x="230" y="310" width="50" height="70" rx="2" fill="rgba(27,42,74,0.4)"/>
+      <rect x="325" y="300" width="50" height="80" rx="2" fill="rgba(27,42,74,0.4)"/>
+      <rect x="430" y="310" width="50" height="70" rx="2" fill="rgba(27,42,74,0.4)"/>
+      <rect x="540" y="310" width="50" height="70" rx="2" fill="rgba(27,42,74,0.4)"/>
+    </svg>
+
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Serving Pueblo Since 1897</div>
+      <h1 class="hero-h1">
+        Justice, served<br/>by <em>Pueblo's</em> own.
+      </h1>
+      <p class="hero-sub">
+        The Pueblo County Bar Association connects residents with qualified legal counsel and supports the attorneys who serve our community.
+      </p>
+      <div class="hero-paths">
+        <a href="#find" class="path-btn path-public">
+          <span class="label">For the public</span>
+          <span class="action">Find a Lawyer</span>
+          <span class="sub">Search by practice area</span>
+        </a>
+        <a href="#membership" class="path-btn path-member">
+          <span class="label">For attorneys</span>
+          <span class="action">Member Portal</span>
+          <span class="sub">CLE, dues &amp; resources</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="num">200+</div>
+        <div class="lbl">Member Attorneys</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">125+</div>
+        <div class="lbl">Years Serving Pueblo</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">12</div>
+        <div class="lbl">Practice Areas</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Two-path strip -->
+  <div class="paths-strip">
+    <div class="section-inner">
+      <a href="#find" class="path-card">
+        <div class="path-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <h3>I need legal help</h3>
+        <p>Browse our directory of licensed Pueblo County attorneys by practice area — from family law to criminal defense to estate planning.</p>
+        <div class="link-row">Search the directory</div>
+      </a>
+      <a href="#membership" class="path-card">
+        <div class="path-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+          </svg>
+        </div>
+        <h3>I'm a Pueblo attorney</h3>
+        <p>Access CLE opportunities, renew your membership, connect with colleagues, and stay current on bar news and pro bono opportunities.</p>
+        <div class="link-row">Member resources</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Find a Lawyer -->
+  <section class="find-section" id="find">
+    <div class="section-inner">
+      <div class="section-eyebrow">Member Directory</div>
+      <h2 class="section-h2">Find a Lawyer in Pueblo</h2>
+      <p class="section-lead">All attorneys listed are licensed members of the Pueblo County Bar Association. Filter by practice area to find the right fit for your situation.</p>
+
+      <div class="filter-row" id="filterRow">
+        <div class="filter-chip active" onclick="filterLawyers('all', this)">All Practice Areas</div>
+        <div class="filter-chip" onclick="filterLawyers('family', this)">Family Law</div>
+        <div class="filter-chip" onclick="filterLawyers('criminal', this)">Criminal Defense</div>
+        <div class="filter-chip" onclick="filterLawyers('estate', this)">Estate Planning</div>
+        <div class="filter-chip" onclick="filterLawyers('injury', this)">Personal Injury</div>
+        <div class="filter-chip" onclick="filterLawyers('business', this)">Business Law</div>
+        <div class="filter-chip" onclick="filterLawyers('real-estate', this)">Real Estate</div>
+        <div class="filter-chip" onclick="filterLawyers('immigration', this)">Immigration</div>
+      </div>
+
+      <div class="lawyers-grid" id="lawyersGrid"></div>
+
+      <div class="lawyers-cta">
+        <a href="#" class="btn btn-primary">View Full Directory →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Events -->
+  <section class="events-section" id="events">
+    <div class="section-inner">
+      <div class="section-eyebrow">Calendar</div>
+      <h2 class="section-h2">Upcoming Events</h2>
+      <p class="section-lead">CLE courses, pro bono clinics, and community gatherings — all in one place.</p>
+
+      <div class="events-grid">
+
+        <div class="event-card">
+          <div class="event-date-block"><div class="mo">Jun</div><div class="dy">28</div></div>
+          <div class="event-body">
+            <div class="event-type">Annual Dinner</div>
+            <div class="event-title">PCBA Annual Awards Dinner 2025</div>
+            <div class="event-meta">6:00 PM · Pueblo Convention Center<br/>Black tie optional · Awards ceremony</div>
+            <a href="#" class="event-register">Register now</a>
+          </div>
+        </div>
+
+        <div class="event-card">
+          <div class="event-date-block"><div class="mo">Jul</div><div class="dy">10</div></div>
+          <div class="event-body">
+            <div class="event-type">CLE · 3.0 Credits</div>
+            <div class="event-title">Ethics in the Age of AI: Obligations for Colorado Attorneys</div>
+            <div class="event-meta">9:00 AM – 12:00 PM · In-person &amp; Zoom<br/>$75 members · $120 non-members</div>
+            <a href="#" class="event-register">Register now</a>
+          </div>
+        </div>
+
+        <div class="event-card">
+          <div class="event-date-block"><div class="mo">Jul</div><div class="dy">19</div></div>
+          <div class="event-body">
+            <div class="event-type">Pro Bono Clinic</div>
+            <div class="event-title">Free Legal Advice Clinic — Family Law Focus</div>
+            <div class="event-meta">10:00 AM – 2:00 PM · Rawlings Library<br/>Walk-ins welcome · Español disponible</div>
+            <a href="#" class="event-register">Volunteer to assist</a>
+          </div>
+        </div>
+
+        <div class="event-card">
+          <div class="event-date-block"><div class="mo">Aug</div><div class="dy">7</div></div>
+          <div class="event-body">
+            <div class="event-type">CLE · 1.5 Credits</div>
+            <div class="event-title">Colorado Rule Changes 2025: What You Need to Know</div>
+            <div class="event-meta">12:00 – 1:30 PM · Lunch provided<br/>$40 members · $65 non-members</div>
+            <a href="#" class="event-register">Register now</a>
+          </div>
+        </div>
+
+        <div class="event-card">
+          <div class="event-date-block"><div class="mo">Aug</div><div class="dy">22</div></div>
+          <div class="event-body">
+            <div class="event-type">YLD Event</div>
+            <div class="event-title">Young Lawyers Happy Hour — Summer Mixer</div>
+            <div class="event-meta">5:30 PM · Nate's Taproom, Union Ave<br/>Open to all attorneys under 36</div>
+            <a href="#" class="event-register">RSVP</a>
+          </div>
+        </div>
+
+        <div class="event-card">
+          <div class="event-date-block"><div class="mo">Sep</div><div class="dy">11</div></div>
+          <div class="event-body">
+            <div class="event-type">Pro Bono Clinic</div>
+            <div class="event-title">Veterans Legal Assistance Clinic</div>
+            <div class="event-meta">9:00 AM – 1:00 PM · Southern Colorado Veterans Coalition<br/>Benefits, discharge, housing issues</div>
+            <a href="#" class="event-register">Volunteer to assist</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="margin-top: 2.5rem; text-align: center;">
+        <a href="#" class="btn btn-gold">Full Events Calendar →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about-section" id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-visual">
+          <div class="about-plaque">
+            <blockquote>"The strength of a community is measured by how well it delivers justice to those who need it most."</blockquote>
+            <cite>Pueblo County Bar Association Mission</cite>
+            <div class="about-plaque-year">1897</div>
+          </div>
+        </div>
+        <div class="about-content">
+          <div class="section-eyebrow">Who We Are</div>
+          <h2 class="section-h2">The bar for Pueblo County</h2>
+          <p>The Pueblo County Bar Association has served the legal community of southeastern Colorado for over a century. We bring together attorneys, judges, and legal professionals to strengthen the practice of law and expand access to justice for all residents.</p>
+          <p>We are a voluntary bar association — a professional home for Pueblo's legal community, not a licensing body. Our work spans professional development, community outreach, pro bono service, and advocacy for a fair and accessible court system.</p>
+          <div class="mission-pillars">
+            <div class="pillar">
+              <div class="pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+              <div class="pillar-text"><strong>Access to Justice</strong><span>Free clinics and referrals for residents who need legal help but can't afford it.</span></div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+              <div class="pillar-text"><strong>Professional Development</strong><span>CLE courses and networking opportunities that keep Pueblo attorneys sharp.</span></div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+              <div class="pillar-text"><strong>Community Leadership</strong><span>Advocating for a well-functioning, independent judiciary in Pueblo County.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leadership -->
+  <section class="leadership-section" id="leadership">
+    <div class="section-inner">
+      <div class="section-eyebrow">2025–2026 Executive Board</div>
+      <h2 class="section-h2">Our Leadership</h2>
+      <p class="section-lead">The PCBA is governed by a volunteer board of Pueblo County attorneys elected annually by the membership.</p>
+      <div class="leadership-grid">
+        <div class="leader-card">
+          <div class="leader-avatar">JM</div>
+          <div class="leader-name">James M. Torres</div>
+          <div class="leader-role">President</div>
+        </div>
+        <div class="leader-card">
+          <div class="leader-avatar">SR</div>
+          <div class="leader-name">Sarah R. Hendricks</div>
+          <div class="leader-role">Vice President</div>
+        </div>
+        <div class="leader-card">
+          <div class="leader-avatar">DL</div>
+          <div class="leader-name">David L. Montoya</div>
+          <div class="leader-role">Secretary</div>
+        </div>
+        <div class="leader-card">
+          <div class="leader-avatar">MP</div>
+          <div class="leader-name">Margaret P. Sullivan</div>
+          <div class="leader-role">Treasurer</div>
+        </div>
+        <div class="leader-card">
+          <div class="leader-avatar">RG</div>
+          <div class="leader-name">Robert G. Archuleta</div>
+          <div class="leader-role">Past President</div>
+        </div>
+        <div class="leader-card">
+          <div class="leader-avatar">KF</div>
+          <div class="leader-name">Katherine F. Bloom</div>
+          <div class="leader-role">YLD Chair</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resources strip -->
+  <section class="resources-section" id="resources">
+    <div class="section-inner">
+      <div class="section-eyebrow">Quick Links</div>
+      <h2 class="section-h2" style="color:var(--white); margin-bottom:2.5rem;">Legal Resources</h2>
+      <div class="resources-grid">
+        <a href="https://www.courts.state.co.us/" target="_blank" class="resource-link">
+          <span class="r-icon">⚖️</span>
+          <span class="r-label">Colorado Courts</span>
+          <span class="r-desc">Case lookup, forms, and court locations</span>
+        </a>
+        <a href="https://www.cobar.org/" target="_blank" class="resource-link">
+          <span class="r-icon">📋</span>
+          <span class="r-label">Colorado Bar Association</span>
+          <span class="r-desc">Statewide attorney resources and licensing</span>
+        </a>
+        <a href="https://coloradolegalservices.org/" target="_blank" class="resource-link">
+          <span class="r-icon">🤝</span>
+          <span class="r-label">Colorado Legal Services</span>
+          <span class="r-desc">Free civil legal help for low-income residents</span>
+        </a>
+        <a href="#" class="resource-link">
+          <span class="r-icon">📹</span>
+          <span class="r-label">Informative Videos</span>
+          <span class="r-desc">Know your rights — mediation, divorce, landlord-tenant</span>
+        </a>
+        <a href="#" class="resource-link">
+          <span class="r-icon">📅</span>
+          <span class="r-label">Court Calendar</span>
+          <span class="r-desc">Pueblo County District Court schedule</span>
+        </a>
+        <a href="#" class="resource-link">
+          <span class="r-icon">📞</span>
+          <span class="r-label">Lawyer Referral</span>
+          <span class="r-desc">Not sure who to call? Start here.</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Membership / Join CTA -->
+  <section id="membership" style="background: var(--gold); padding: 5rem 2rem;">
+    <div class="section-inner" style="display:grid; grid-template-columns: 1fr 1fr; gap:4rem; align-items:center;">
+      <div>
+        <div class="section-eyebrow" style="color:var(--night); opacity:0.6;">Membership</div>
+        <h2 class="section-h2" style="color:var(--night);">Join the PCBA</h2>
+        <p style="color:var(--night); opacity:0.75; font-size:1rem; line-height:1.7; margin-bottom:0;">
+          Membership connects you to Pueblo's legal community — CLE discounts, networking events, pro bono opportunities, and a voice in local bar affairs. Active, associate, and judicial memberships available.
+        </p>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:1rem;">
+        <a href="#" class="btn btn-primary" style="justify-content:center; font-size:0.9rem; padding:1rem;">New Member Application →</a>
+        <a href="#" class="btn btn-outline" style="justify-content:center; font-size:0.9rem; padding:1rem; border-color:var(--night);">Renew Existing Membership →</a>
+        <p style="font-size:0.78rem; color:var(--night); opacity:0.55; text-align:center;">Annual dues · Active $150 · Associate $75 · Judicial complimentary</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div style="font-family:var(--ff-serif); font-size:1.2rem; font-weight:600; color:var(--white);">Pueblo County Bar Association</div>
+        <p class="tagline">Serving the legal community<br/>of southeastern Colorado since 1897.</p>
+      </div>
+      <div class="footer-col">
+        <h4>For the Public</h4>
+        <a href="#find">Find a Lawyer</a>
+        <a href="#">Lawyer Referral Service</a>
+        <a href="#">Legal Resources</a>
+        <a href="#">Pro Bono Clinics</a>
+        <a href="#">Informative Videos</a>
+      </div>
+      <div class="footer-col">
+        <h4>For Members</h4>
+        <a href="#membership">Join / Renew</a>
+        <a href="#events">CLE Calendar</a>
+        <a href="#">Member Directory</a>
+        <a href="#">Young Lawyers Division</a>
+        <a href="#">Pro Bono Projects</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:info@pueblobar.org">info@pueblobar.org</a>
+        <a href="tel:7195551234">(719) 555-1234</a>
+        <a href="#">Courthouse location</a>
+        <a href="#about">About the PCBA</a>
+        <a href="#leadership">Leadership</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Pueblo County Bar Association. All rights reserved.</p>
+      <div class="demo-badge">Design Demo</div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Lawyer data ──────────────────────────────────────
+    const lawyers = [
+      { init:'AR', name:'Ana R. Castillo', firm:'Castillo & Associates', areas:['family','injury'], phone:'(719) 555-0101' },
+      { init:'BM', name:'Brian M. Walsh', firm:'Walsh Law Group', areas:['criminal','injury'], phone:'(719) 555-0142' },
+      { init:'CL', name:'Christine L. Park', firm:'Park & Nguyen LLP', areas:['estate','business'], phone:'(719) 555-0193' },
+      { init:'DH', name:'Daniel H. Reyes', firm:'Reyes Legal Services', areas:['immigration','family'], phone:'(719) 555-0218' },
+      { init:'EV', name:'Elena V. Morrison', firm:'Morrison Law Office', areas:['real-estate','business'], phone:'(719) 555-0267' },
+      { init:'FG', name:'Frank G. Obata', firm:'Solo Practice', areas:['criminal','family'], phone:'(719) 555-0334' },
+      { init:'GL', name:'Grace L. Sandoval', firm:'Sandoval & Kowalski', areas:['estate','real-estate'], phone:'(719) 555-0388' },
+      { init:'HN', name:'Henry N. Brooks', firm:'Brooks Litigation Group', areas:['injury','business'], phone:'(719) 555-0421' },
+    ];
+
+    const areaLabels = {
+      family:'Family Law', criminal:'Criminal Defense', estate:'Estate Planning',
+      injury:'Personal Injury', business:'Business Law',
+      'real-estate':'Real Estate', immigration:'Immigration'
+    };
+
+    function renderLawyers(filter) {
+      const grid = document.getElementById('lawyersGrid');
+      const filtered = filter === 'all' ? lawyers : lawyers.filter(l => l.areas.includes(filter));
+      grid.innerHTML = filtered.map(l => `
+        <div class="lawyer-card">
+          <div class="lawyer-avatar">${l.init}</div>
+          <div class="lawyer-name">${l.name}</div>
+          <div class="lawyer-firm">${l.firm}</div>
+          <div class="lawyer-tags">${l.areas.map(a => `<span class="lawyer-tag">${areaLabels[a]||a}</span>`).join('')}</div>
+          <div class="lawyer-contact">
+            <span>${l.phone}</span>
+            <a href="#">View profile →</a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterLawyers(area, el) {
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      renderLawyers(area);
+    }
+
+    // Initial render
+    renderLawyers('all');
+
+    // ── Mobile menu ──────────────────────────────────────
+    function toggleMenu() {
+      const toggle = document.getElementById('menuToggle');
+      const drawer = document.getElementById('navDrawer');
+      toggle.classList.toggle('open');
+      drawer.classList.toggle('open');
+    }
+    function closeMenu() {
+      document.getElementById('menuToggle').classList.remove('open');
+      document.getElementById('navDrawer').classList.remove('open');
+    }
+    // Close drawer on outside tap
+    document.addEventListener('click', e => {
+      const drawer = document.getElementById('navDrawer');
+      const toggle = document.getElementById('menuToggle');
+      if (drawer.classList.contains('open') && !drawer.contains(e.target) && !toggle.contains(e.target)) {
+        closeMenu();
+      }
+    });
+
+    // ── Announcement banner ──────────────────────────────
+    function closeAnnouncement() {
+      document.getElementById('announcement').style.display = 'none';
+      document.body.classList.remove('has-announcement');
+    }
+
+    // ── Smooth scroll offset for fixed nav ──────────────
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href').slice(1);
+        if (!id) return;
+        const target = document.getElementById(id);
+        if (!target) return;
+        e.preventDefault();
+        const offset = document.body.classList.contains('has-announcement') ? 104 : 68;
+        window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' });
+      });
+    });
+
+    // ── Nav scroll shadow ────────────────────────────────
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('.nav');
+      nav.style.boxShadow = window.scrollY > 20 ? '0 4px 24px rgba(0,0,0,0.3)' : 'none';
+    });
+  </script>
+</body>
+</html>
