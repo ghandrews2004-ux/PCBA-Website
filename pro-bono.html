@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pro Bono Clinics — Pueblo County Bar Association</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--night:#1B2A4A;--night-lt:#2D3E5F;--gold:#C8A97E;--gold-dk:#A8845A;--lime:#F7F5F0;--white:#FFFFFF;--gray:#6B7280;--gray-lt:#E5E3DE;--body-txt:#1F2937;--ff-serif:'Cormorant Garamond',Georgia,serif;--ff-sans:'Inter',system-ui,sans-serif;--radius:6px;--shadow:0 2px 12px rgba(27,42,74,0.10);--shadow-lg:0 8px 32px rgba(27,42,74,0.16)}
+html{scroll-behavior:smooth}body{font-family:var(--ff-sans);background:var(--lime);color:var(--body-txt);line-height:1.6;-webkit-font-smoothing:antialiased}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(27,42,74,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(200,169,126,0.20);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:68px}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}.nav-logo-seal{width:40px;height:40px;flex-shrink:0}
+.nav-logo-text .org{font-family:var(--ff-serif);font-size:1.05rem;font-weight:600;color:var(--white);white-space:nowrap}.nav-logo-text .loc{font-size:0.65rem;font-weight:500;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;white-space:nowrap}
+.nav-links{display:flex;align-items:center;gap:0.25rem}.nav-links a{font-size:0.8rem;font-weight:500;color:rgba(255,255,255,0.75);text-decoration:none;padding:0.4rem 0.8rem;border-radius:4px;letter-spacing:0.04em;text-transform:uppercase;transition:color 0.2s,background 0.2s}.nav-links a:hover{color:var(--white);background:rgba(200,169,126,0.12)}
+.nav-cta{background:var(--gold);color:var(--night)!important;font-weight:600!important;border-radius:4px;padding:0.45rem 1rem!important}.nav-cta:hover{background:var(--gold-dk)!important;color:var(--white)!important}
+.nav-mobile-toggle{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px}.nav-mobile-toggle span{display:block;width:24px;height:2px;background:var(--white);border-radius:2px}
+.nav-drawer{display:none;position:fixed;left:0;right:0;z-index:98;background:rgba(18,30,52,0.98);backdrop-filter:blur(16px);border-bottom:1px solid rgba(200,169,126,0.2);padding:1rem 1.5rem 1.5rem;flex-direction:column;gap:0.25rem;top:68px}.nav-drawer.open{display:flex}
+.nav-drawer a{font-size:1rem;font-weight:500;color:rgba(255,255,255,0.8);text-decoration:none;padding:0.75rem 0.5rem;border-bottom:1px solid rgba(255,255,255,0.07)}.nav-drawer a:last-child{border-bottom:none}
+.nav-drawer .drawer-cta{margin-top:0.75rem;background:var(--gold);color:var(--night)!important;font-weight:700!important;border-radius:6px;text-align:center;padding:0.9rem!important;border-bottom:none!important}
+.page-header{background:linear-gradient(165deg,#0D1B2E 0%,#1B2A4A 55%,#253654 100%);padding:7rem 2rem 4rem;position:relative;overflow:hidden}
+.page-header::after{content:'';position:absolute;inset:0;pointer-events:none;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 1400 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M-100,150 C150,130 250,170 400,145 S650,120 800,150 S1050,180 1200,160 S1350,140 1500,155' stroke='%23C8A97E' stroke-width='1' fill='none' opacity='0.12'/%3E%3C/svg%3E") no-repeat center/cover}
+.page-header-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1}
+.breadcrumb{display:flex;align-items:center;gap:0.5rem;font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:1.5rem}.breadcrumb a{color:var(--gold);text-decoration:none}.breadcrumb span{opacity:0.4}
+.page-header h1{font-family:var(--ff-serif);font-size:clamp(2.2rem,4vw,3.2rem);font-weight:600;color:var(--white);line-height:1.1;margin-bottom:0.75rem}
+.page-header p{font-size:1rem;color:rgba(255,255,255,0.55);max-width:580px;font-weight:300;line-height:1.7}
+.main{max-width:1100px;margin:0 auto;padding:3rem 2rem 5rem}
+.section-title{font-family:var(--ff-serif);font-size:1.6rem;font-weight:600;color:var(--night);margin-bottom:1.25rem;padding-bottom:0.6rem;border-bottom:2px solid var(--gray-lt)}
+.clinic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.25rem;margin-bottom:3rem}
+.clinic-card{background:var(--white);border-radius:10px;padding:1.75rem;box-shadow:var(--shadow);border:1.5px solid transparent;transition:all 0.2s}
+.clinic-card:hover{border-color:var(--gray-lt);transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.clinic-badge{display:inline-block;font-size:0.62rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0.65rem;border-radius:4px;margin-bottom:0.75rem}
+.badge-monthly{background:rgba(200,169,126,0.15);color:var(--gold-dk)}.badge-annual{background:rgba(27,42,74,0.08);color:var(--night)}.badge-veterans{background:rgba(34,139,34,0.1);color:#1a6b1a}.badge-seniors{background:rgba(99,102,241,0.1);color:#4338ca}
+.clinic-card h3{font-family:var(--ff-serif);font-size:1.2rem;color:var(--night);font-weight:600;margin-bottom:0.5rem}
+.clinic-card p{font-size:0.83rem;color:var(--gray);line-height:1.6;margin-bottom:1rem}
+.clinic-detail{font-size:0.78rem;color:var(--gray);margin-bottom:0.3rem;display:flex;gap:0.4rem}.clinic-detail strong{color:var(--body-txt)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2.5rem;align-items:start}
+.info-card{background:var(--white);border-radius:10px;padding:2rem;box-shadow:var(--shadow)}
+.info-card h3{font-family:var(--ff-serif);font-size:1.3rem;color:var(--night);margin-bottom:0.75rem}
+.info-card p{font-size:0.85rem;color:var(--gray);line-height:1.65;margin-bottom:0.85rem}
+.info-card p:last-child{margin-bottom:0}
+.volunteer-card{background:var(--night);border-radius:10px;padding:2rem}
+.volunteer-card h3{font-family:var(--ff-serif);font-size:1.3rem;color:var(--white);margin-bottom:0.75rem}
+.volunteer-card p{font-size:0.85rem;color:rgba(255,255,255,0.55);line-height:1.65;margin-bottom:1.25rem}
+.btn-gold{display:inline-flex;align-items:center;gap:0.4rem;padding:0.75rem 1.5rem;background:var(--gold);color:var(--night);border-radius:var(--radius);font-size:0.82rem;font-weight:700;text-decoration:none;letter-spacing:0.05em;text-transform:uppercase;transition:all 0.2s}
+.btn-gold:hover{background:var(--gold-dk);color:var(--white)}
+.partner-strip{background:var(--white);border-radius:12px;padding:2rem 2.5rem;box-shadow:var(--shadow)}
+.partner-strip h3{font-family:var(--ff-serif);font-size:1.3rem;color:var(--night);margin-bottom:1rem}
+.partner-list{display:flex;flex-direction:column;gap:0.75rem}
+.partner-item{display:flex;align-items:flex-start;gap:0.75rem;font-size:0.85rem;color:var(--gray);padding:0.75rem;background:var(--lime);border-radius:6px}
+.partner-item .p-icon{font-size:1.1rem;flex-shrink:0}
+.partner-item a{color:var(--gold-dk);text-decoration:none;font-weight:600}.partner-item a:hover{text-decoration:underline}
+.footer{background:#0D1B2E;padding:3.5rem 2rem 2rem;color:rgba(255,255,255,0.5)}
+.footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,0.08)}
+.footer-brand .tagline{font-family:var(--ff-serif);font-style:italic;font-size:1.05rem;color:rgba(255,255,255,0.4);margin-top:0.75rem;line-height:1.5}
+.footer-col h4{font-size:0.68rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+.footer-col a{display:block;font-size:0.82rem;color:rgba(255,255,255,0.45);text-decoration:none;margin-bottom:0.5rem;transition:color 0.15s}.footer-col a:hover{color:var(--white)}
+.footer-bottom{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding-top:1.75rem;flex-wrap:wrap;gap:0.5rem}.footer-bottom p{font-size:0.75rem}
+@media(max-width:900px){.footer-inner{grid-template-columns:1fr 1fr}.nav-links{display:none}.nav-mobile-toggle{display:flex}.two-col{grid-template-columns:1fr}}
+@media(max-width:600px){.footer-inner{grid-template-columns:1fr;gap:2rem}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a class="nav-logo" href="index.html">
+    <svg class="nav-logo-seal" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="19" stroke="#C8A97E" stroke-width="1.5"/><circle cx="20" cy="20" r="14" stroke="#C8A97E" stroke-width="0.75" stroke-dasharray="2 2"/><text x="20" y="24" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="11" font-weight="700" fill="#C8A97E">PCBA</text></svg>
+    <div class="nav-logo-text"><div class="org">Pueblo County Bar Association</div><div class="loc">Established · Pueblo, Colorado</div></div>
+  </a>
+  <div class="nav-links">
+    <a href="directory.html">Find a Lawyer</a><a href="events.html">Events</a><a href="index.html#about">About</a><a href="index.html#leadership">Leadership</a><a href="index.html#resources">Resources</a>
+    <a href="index.html#membership" class="nav-cta">Join / Renew</a>
+  </div>
+  <button class="nav-mobile-toggle" id="menuToggle" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-drawer" id="navDrawer">
+  <a href="directory.html" onclick="closeMenu()">Find a Lawyer</a><a href="events.html" onclick="closeMenu()">Events</a><a href="index.html#about" onclick="closeMenu()">About</a><a href="index.html#leadership" onclick="closeMenu()">Leadership</a><a href="index.html#resources" onclick="closeMenu()">Resources</a>
+  <a href="index.html#membership" class="drawer-cta" onclick="closeMenu()">Join / Renew</a>
+</div>
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="breadcrumb"><a href="index.html">Home</a><span>›</span>Pro Bono Clinics</div>
+    <h1>Pro Bono Clinics &amp; Projects</h1>
+    <p>PCBA member attorneys volunteer their time to provide free legal help to Pueblo County residents who need it most.</p>
+  </div>
+</div>
+<main class="main">
+  <div class="section-title">Upcoming Clinics</div>
+  <div class="clinic-grid">
+    <div class="clinic-card">
+      <span class="clinic-badge badge-monthly">Monthly</span>
+      <h3>Free Legal Advice Clinic — Family Law</h3>
+      <p>Walk-in clinic providing brief legal advice on family law matters including divorce, custody, child support, and protection orders. No appointment needed.</p>
+      <div class="clinic-detail">📅 <span><strong>When:</strong> 3rd Saturday of each month, 10 AM – 2 PM</span></div>
+      <div class="clinic-detail">📍 <span><strong>Where:</strong> Rawlings Library, 100 E. Abriendo Ave, Pueblo</span></div>
+      <div class="clinic-detail">🌐 <span><strong>Language:</strong> Español disponible</span></div>
+    </div>
+    <div class="clinic-card">
+      <span class="clinic-badge badge-veterans">Quarterly</span>
+      <h3>Veterans Legal Assistance Clinic</h3>
+      <p>Free legal help for veterans and active-duty military on issues including benefits appeals, discharge upgrades, housing, and family law matters.</p>
+      <div class="clinic-detail">📅 <span><strong>When:</strong> Quarterly — see Events Calendar</span></div>
+      <div class="clinic-detail">📍 <span><strong>Where:</strong> Southern Colorado Veterans Coalition</span></div>
+      <div class="clinic-detail">👤 <span><strong>Who:</strong> Veterans and active-duty military</span></div>
+    </div>
+    <div class="clinic-card">
+      <span class="clinic-badge badge-seniors">Monthly</span>
+      <h3>Senior Legal Services Clinic</h3>
+      <p>Free legal consultations for residents age 60 and older. No income guidelines. Topics include estate planning, benefits, housing, and consumer issues.</p>
+      <div class="clinic-detail">📅 <span><strong>When:</strong> 2nd Tuesday of each month, 9 AM – 12 PM</span></div>
+      <div class="clinic-detail">📍 <span><strong>Where:</strong> Pueblo Area Agency on Aging</span></div>
+      <div class="clinic-detail">👤 <span><strong>Who:</strong> Age 60+, no income limit</span></div>
+    </div>
+    <div class="clinic-card">
+      <span class="clinic-badge badge-monthly">Ongoing</span>
+      <h3>Ask-A-Lawyer</h3>
+      <p>Brief, informal consultations with volunteer PCBA attorneys. Get answers to general legal questions — not full legal representation, but enough to know your next step.</p>
+      <div class="clinic-detail">📅 <span><strong>When:</strong> Check Events Calendar for schedule</span></div>
+      <div class="clinic-detail">📍 <span><strong>Where:</strong> Various Pueblo locations</span></div>
+      <div class="clinic-detail">✅ <span>No appointment needed · Walk-ins welcome</span></div>
+    </div>
+    <div class="clinic-card">
+      <span class="clinic-badge badge-annual">Annual</span>
+      <h3>Small Business Legal Clinic</h3>
+      <p>Free legal consultations for small business owners on contracts, employment law, licensing, and business formation. Hosted in partnership with the Pueblo Chamber of Commerce.</p>
+      <div class="clinic-detail">📅 <span><strong>When:</strong> Annually — see Events Calendar</span></div>
+      <div class="clinic-detail">📍 <span><strong>Where:</strong> Pueblo Chamber of Commerce</span></div>
+      <div class="clinic-detail">👤 <span><strong>Who:</strong> Small business owners, Pueblo County</span></div>
+    </div>
+    <div class="clinic-card">
+      <span class="clinic-badge badge-monthly">Ongoing</span>
+      <h3>Courthouse Self-Help Desk</h3>
+      <p>PCBA attorneys rotate through the Pueblo Combined Courthouse to assist self-represented litigants with forms, procedures, and general guidance.</p>
+      <div class="clinic-detail">📅 <span><strong>When:</strong> Tuesdays &amp; Thursdays, 8:30 AM – 12 PM</span></div>
+      <div class="clinic-detail">📍 <span><strong>Where:</strong> Pueblo Combined Courts, 501 N. Elizabeth St.</span></div>
+      <div class="clinic-detail">✅ <span>No appointment needed</span></div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="info-card">
+      <h3>Who Can Use These Clinics?</h3>
+      <p>Most PCBA pro bono clinics are open to any Pueblo County resident who needs free legal assistance. Some programs have specific eligibility requirements (such as income limits or veteran status) which are noted above.</p>
+      <p>Clinics provide brief advice and guidance — not ongoing legal representation. If your matter requires full representation, our volunteer attorneys can help connect you with Colorado Legal Services or other resources.</p>
+      <p>All consultations are confidential. You do not need to bring a lawyer to the clinic.</p>
+    </div>
+    <div class="volunteer-card">
+      <h3>Volunteer as an Attorney</h3>
+      <p>PCBA member attorneys are the heart of these programs. If you're a licensed attorney interested in volunteering at a clinic, contact the PCBA to be added to our volunteer roster.</p>
+      <p>Pro bono service earns CLE credit under Colorado Supreme Court Rule 260.5. Volunteer attorneys may receive up to 7 hours of CLE credit per year for pro bono service.</p>
+      <a href="mailto:info@pueblobar.org" class="btn-gold">Sign Up to Volunteer →</a>
+    </div>
+  </div>
+
+  <div class="partner-strip">
+    <h3>Partner Organizations</h3>
+    <p style="font-size:0.85rem;color:var(--gray);margin-bottom:1rem;">The PCBA co-sponsors pro bono projects with these organizations to expand access to justice in Pueblo County.</p>
+    <div class="partner-list">
+      <div class="partner-item"><span class="p-icon">⚖️</span><span><a href="https://coloradolegalservices.org" target="_blank" rel="noopener noreferrer">Colorado Legal Services</a> — Free civil legal help for low-income Coloradans. Actual cases from PCBA clinics are often referred here for full representation.</span></div>
+      <div class="partner-item"><span class="p-icon">📋</span><span><a href="https://www.cobar.org" target="_blank" rel="noopener noreferrer">Colorado Bar Association</a> — The PCBA co-sponsors many pro bono projects with the CBA's Access to Justice initiatives statewide.</span></div>
+      <div class="partner-item"><span class="p-icon">📚</span><span><strong>Rawlings Library</strong> — Community partner hosting monthly family law clinics in a welcoming, accessible public space in downtown Pueblo.</span></div>
+      <div class="partner-item"><span class="p-icon">🎖️</span><span><strong>Southern Colorado Veterans Coalition</strong> — Partner for the quarterly Veterans Legal Assistance Clinic serving Pueblo's veteran community.</span></div>
+    </div>
+  </div>
+</main>
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand"><div style="font-family:var(--ff-serif);font-size:1.2rem;font-weight:600;color:var(--white);">Pueblo County Bar Association</div><p class="tagline">Serving the legal community<br/>of southeastern Colorado since 1897.</p></div>
+    <div class="footer-col"><h4>For the Public</h4><a href="directory.html">Find a Lawyer</a><a href="lawyer-referral.html">Lawyer Referral</a><a href="pro-bono.html">Pro Bono Clinics</a><a href="videos.html">Informative Videos</a></div>
+    <div class="footer-col"><h4>For Members</h4><a href="join.html">Join the PCBA</a><a href="renew.html">Renew Membership</a><a href="events.html">CLE Calendar</a><a href="yld.html">Young Lawyers</a></div>
+    <div class="footer-col"><h4>Contact</h4><a href="mailto:info@pueblobar.org">info@pueblobar.org</a><a href="tel:7195551234">(719) 555-1234</a><a href="index.html#about">About the PCBA</a><a href="index.html#leadership">Leadership</a></div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 Pueblo County Bar Association. All rights reserved.</p></div>
+</footer>
+<script>
+function toggleMenu(){document.getElementById('menuToggle').classList.toggle('open');document.getElementById('navDrawer').classList.toggle('open')}
+function closeMenu(){document.getElementById('menuToggle').classList.remove('open');document.getElementById('navDrawer').classList.remove('open')}
+</script>
+</body>
+</html>
