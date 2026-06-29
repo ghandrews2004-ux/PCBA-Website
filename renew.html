@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -132,7 +133,7 @@ body {
 }
 .info-card p { font-size: 0.9rem; color: var(--gray); line-height: 1.7; margin-bottom: 1.25rem; }
 .dues-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 0;
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 0;
 }
 .dues-tier {
   background: var(--lime); border-radius: 8px;
@@ -371,22 +372,19 @@ body {
 
   <!-- Dues overview -->
   <div class="info-card">
-    <h2>2025–2026 Annual Dues</h2>
+    <h2>2026–2027 Annual Dues</h2>
     <p>Dues cover the membership year and support CLE programming, pro bono clinics, networking events, and the operations of the Association. Renew by December 31 to maintain uninterrupted membership.</p>
     <div class="dues-grid">
       <div class="dues-tier highlight">
         <div class="tier-name">Active</div>
-        <div class="tier-amount">$150</div>
+        <div class="tier-amount">$100</div>
       </div>
       <div class="dues-tier">
-        <div class="tier-name">Associate</div>
-        <div class="tier-amount">$75</div>
-      </div>
-      <div class="dues-tier">
-        <div class="tier-name">Judicial</div>
-        <div class="tier-amount">Free</div>
+        <div class="tier-name">Public Servant</div>
+        <div class="tier-amount">$50*</div>
       </div>
     </div>
+    <p style="font-size:0.72rem; color:var(--gray); margin-top:0.75rem;">* Public Servant dues are pending final approval. Amount subject to change.</p>
   </div>
 
   <!-- Confirm Details -->
@@ -419,10 +417,10 @@ body {
       <div class="field form-col-full">
         <label>Membership Type <span class="required">*</span></label>
         <select id="memberType" onchange="updateDues()">
-          <option value="150">Active Member — $150</option>
-          <option value="75">Associate Member — $75</option>
-          <option value="0">Judicial Member — Complimentary</option>
+          <option value="100">Active Member — $100</option>
+          <option value="50">Public Servant Member — $50*</option>
         </select>
+        <p style="font-size:0.72rem; color:var(--gray); margin-top:0.5rem;">* Public Servant dues are pending final approval. Amount subject to change.</p>
       </div>
     </div>
   </div>
@@ -434,15 +432,15 @@ body {
     <div class="dues-summary">
       <div class="summary-left">
         <div class="summary-label">Amount Due</div>
-        <div class="summary-type" id="summaryType">Active Member · 2025–2026</div>
+        <div class="summary-type" id="summaryType">Active Member · 2026–2027</div>
       </div>
-      <div class="summary-amount" id="summaryAmount">$150</div>
+      <div class="summary-amount" id="summaryAmount">$100</div>
     </div>
     <a href="https://www.paypal.com/ncp/payment/EKRXB4QRAL5BJ" target="_blank" rel="noopener noreferrer" class="paypal-btn" id="paypalBtn">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>
       </svg>
-      Pay $150 via PayPal
+      Pay $100 via PayPal
     </a>
     <div class="check-instructions">
       <h4>Pay by Check</h4>
@@ -502,20 +500,14 @@ function updateDues() {
   const select = document.getElementById('memberType');
   const amount = parseInt(select.value);
   const typeText = select.options[select.selectedIndex].text.split(' —')[0];
-  document.getElementById('summaryType').textContent = typeText + ' · 2025–2026';
-  if (amount === 0) {
-    document.getElementById('summaryAmount').textContent = 'Free';
-    document.getElementById('paypalBtn').style.display = 'none';
-  } else {
-    document.getElementById('summaryAmount').textContent = '$' + amount;
-    document.getElementById('paypalBtn').textContent = '';
-    document.getElementById('paypalBtn').style.display = 'flex';
-    document.getElementById('paypalBtn').innerHTML = `
-      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px">
-        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>
-      </svg>
-      Pay $${amount} via PayPal`;
-  }
+  document.getElementById('summaryType').textContent = typeText + ' · 2026–2027';
+  document.getElementById('summaryAmount').textContent = '$' + amount;
+  document.getElementById('paypalBtn').style.display = 'flex';
+  document.getElementById('paypalBtn').innerHTML = `
+    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px">
+      <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>
+    </svg>
+    Pay $${amount} via PayPal`;
 }
 
 function confirmRenewal() {
