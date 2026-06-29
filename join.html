@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -123,8 +124,8 @@ body {
 
 /* ── MEMBERSHIP TYPE SELECTOR ── */
 .type-selector {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 1rem; margin-bottom: 2.5rem;
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 1rem; margin-bottom: 0.5rem;
 }
 .type-card {
   background: var(--white); border-radius: 10px;
@@ -400,25 +401,20 @@ body {
       Select Membership Type
     </div>
     <div class="type-selector">
-      <div class="type-card selected" onclick="selectType(this, 'active', 150)" data-type="active">
+      <div class="type-card selected" onclick="selectType(this, 'active', 100)" data-type="active">
         <div class="type-name">Active</div>
-        <div class="type-dues">$150</div>
+        <div class="type-dues">$100</div>
         <div class="type-desc">Licensed attorneys in active practice in Pueblo County</div>
         <div class="type-check">✓</div>
       </div>
-      <div class="type-card" onclick="selectType(this, 'associate', 75)" data-type="associate">
-        <div class="type-name">Associate</div>
-        <div class="type-dues">$75</div>
-        <div class="type-desc">Law students, paralegals, and legal professionals not admitted to practice</div>
-        <div class="type-check">✓</div>
-      </div>
-      <div class="type-card" onclick="selectType(this, 'judicial', 0)" data-type="judicial">
-        <div class="type-name">Judicial</div>
-        <div class="type-dues">Free</div>
-        <div class="type-desc">Active judges and magistrates serving Pueblo County courts</div>
+      <div class="type-card" onclick="selectType(this, 'public-servant', 50)" data-type="public-servant">
+        <div class="type-name">Public Servant</div>
+        <div class="type-dues">$50*</div>
+        <div class="type-desc">Judges, magistrates, prosecutors, public defenders, and other public service attorneys</div>
         <div class="type-check">✓</div>
       </div>
     </div>
+    <p style="font-size:0.72rem; color:var(--gray); margin-top:0.75rem;">* Public Servant dues are pending final approval. Amount subject to change.</p>
   </div>
 
   <!-- Step 2: Personal Information -->
@@ -540,7 +536,7 @@ body {
       <div>
         <div class="dues-label">Annual Dues — <span id="selectedTypeName">Active Member</span></div>
       </div>
-      <div class="dues-amount" id="duesAmount">$150</div>
+      <div class="dues-amount" id="duesAmount">$100</div>
     </div>
     <div class="payment-options">
       <div class="payment-option">
@@ -610,7 +606,7 @@ body {
 </footer>
 
 <script>
-let selectedDues = 150;
+let selectedDues = 100;
 let selectedType = 'active';
 
 function selectType(card, type, dues) {
@@ -618,18 +614,13 @@ function selectType(card, type, dues) {
   card.classList.add('selected');
   selectedType = type;
   selectedDues = dues;
-  const typeNames = { active: 'Active Member', associate: 'Associate Member', judicial: 'Judicial Member' };
+  const typeNames = { active: 'Active Member', 'public-servant': 'Public Servant Member' };
   document.getElementById('selectedTypeName').textContent = typeNames[type];
-  document.getElementById('duesAmount').textContent = dues === 0 ? 'Complimentary' : '$' + dues;
-  // Hide payment for judicial (complimentary)
-  document.getElementById('paypalBtn').style.display = dues === 0 ? 'none' : 'flex';
-  // Show/hide bar number for non-attorney types
-  document.getElementById('professionalSection').style.display = type === 'associate' ? 'none' : 'block';
-  if (type === 'associate') document.getElementById('professionalSection').style.display = 'block';
+  document.getElementById('duesAmount').textContent = '$' + dues + (type === 'public-servant' ? '*' : '');
+  document.getElementById('paypalBtn').style.display = 'flex';
 }
 
 function submitApplication() {
-  // Basic validation
   const required = ['firstName', 'lastName', 'email', 'phone', 'address', 'city', 'zip'];
   let missing = false;
   required.forEach(id => {
@@ -641,12 +632,10 @@ function submitApplication() {
       el.style.borderColor = '';
     }
   });
-  if (selectedType !== 'associate' && selectedType !== 'judicial') {
-    const barNum = document.getElementById('barNumber');
-    if (!barNum.value.trim()) { barNum.style.borderColor = '#dc2626'; missing = true; }
-    const yearAdm = document.getElementById('yearAdmitted');
-    if (!yearAdm.value.trim()) { yearAdm.style.borderColor = '#dc2626'; missing = true; }
-  }
+  const barNum = document.getElementById('barNumber');
+  if (!barNum.value.trim()) { barNum.style.borderColor = '#dc2626'; missing = true; }
+  const yearAdm = document.getElementById('yearAdmitted');
+  if (!yearAdm.value.trim()) { yearAdm.style.borderColor = '#dc2626'; missing = true; }
   if (missing) {
     alert('Please fill in all required fields before submitting.');
     return;
