@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -106,12 +107,18 @@
 
     /* ABOUT */
     .about-section { background: var(--white); }
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-    .about-plaque { background: var(--night); border-radius: 12px; padding: 3rem 2.5rem; position: relative; overflow: hidden; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .about-plaque { background: var(--night); border-radius: 12px; padding: 2.5rem; position: relative; overflow: hidden; }
     .about-plaque::before { content: ''; position: absolute; top: -40px; right: -40px; width: 180px; height: 180px; border-radius: 50%; background: rgba(200,169,126,0.08); }
-    .about-plaque-year { font-family: var(--ff-serif); font-size: 5rem; font-weight: 700; color: rgba(200,169,126,0.15); line-height: 1; position: absolute; bottom: 1.5rem; right: 1.5rem; }
-    .about-plaque blockquote { font-family: var(--ff-serif); font-size: 1.4rem; font-style: italic; color: var(--white); line-height: 1.5; margin-bottom: 1.5rem; position: relative; z-index: 1; }
-    .about-plaque cite { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); font-style: normal; }
+    .bylaws-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; position: relative; z-index: 1; }
+    .bylaws-seal { width: 40px; height: 40px; flex-shrink: 0; }
+    .bylaws-title { font-family: var(--ff-serif); font-size: 1.1rem; font-weight: 600; color: var(--white); line-height: 1.2; }
+    .bylaws-subtitle { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
+    .bylaws-article { margin-bottom: 1.25rem; position: relative; z-index: 1; }
+    .bylaws-article-title { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
+    .bylaws-article-text { font-size: 0.82rem; color: rgba(255,255,255,0.65); line-height: 1.65; }
+    .bylaws-divider { border: none; border-top: 1px solid rgba(200,169,126,0.15); margin: 1.1rem 0; }
+    .bylaws-adopted { font-size: 0.68rem; color: rgba(255,255,255,0.3); letter-spacing: 0.06em; margin-top: 1.5rem; position: relative; z-index: 1; }
     .about-content p { font-size: 0.95rem; color: var(--gray); line-height: 1.75; margin-bottom: 1.25rem; }
     .mission-pillars { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.75rem; }
     .pillar { display: flex; gap: 1rem; align-items: flex-start; padding: 1rem 1.25rem; background: var(--lime); border-radius: 8px; }
@@ -427,9 +434,47 @@
       <div class="about-grid">
         <div class="about-visual">
           <div class="about-plaque">
-            <blockquote>"The strength of a community is measured by how well it delivers justice to those who need it most."</blockquote>
-            <cite>Pueblo County Bar Association Mission</cite>
-            <div class="about-plaque-year">1897</div>
+            <div class="bylaws-header">
+              <svg class="bylaws-seal" viewBox="0 0 40 40" fill="none">
+                <circle cx="20" cy="20" r="19" stroke="#C8A97E" stroke-width="1.5"/>
+                <circle cx="20" cy="20" r="14" stroke="#C8A97E" stroke-width="0.75" stroke-dasharray="2 2"/>
+                <text x="20" y="24" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="11" font-weight="700" fill="#C8A97E">PCBA</text>
+              </svg>
+              <div>
+                <div class="bylaws-title">Bylaws of the Pueblo County Bar Association</div>
+                <div class="bylaws-subtitle">Adopted November 10, 2015</div>
+              </div>
+            </div>
+
+            <div class="bylaws-article">
+              <div class="bylaws-article-title">Article I — Purpose &amp; Object</div>
+              <div class="bylaws-article-text">The purpose of the Pueblo County Bar Association is to serve as a professional association for attorneys at law who reside in, or practice in, Pueblo County, Colorado — promoting justice, its administration and availability to all sectors of society.</div>
+            </div>
+
+            <hr class="bylaws-divider"/>
+
+            <div class="bylaws-article">
+              <div class="bylaws-article-title">Article II — Membership</div>
+              <div class="bylaws-article-text">Any person licensed to practice law by the Supreme Court of the State of Colorado shall be eligible to become a regular member. Membership may be terminated only by non-payment of dues or by disbarment or suspension by the Supreme Court of the State of Colorado.</div>
+            </div>
+
+            <hr class="bylaws-divider"/>
+
+            <div class="bylaws-article">
+              <div class="bylaws-article-title">Article VI — Dues</div>
+              <div class="bylaws-article-text">Annual dues are payable on or before the first day of July. The amount of dues for all classes of membership will be as decided by the membership from time to time. In the event of hardship, any Regular member may apply to the Board of Directors for a waiver of annual dues.</div>
+            </div>
+
+            <hr class="bylaws-divider"/>
+
+            <div class="bylaws-article">
+              <div class="bylaws-article-title">Article VII — Meetings</div>
+              <div class="bylaws-article-text">Monthly meetings shall be held on the second Tuesday of each month at a place to be designated by the Board of Directors. The annual meeting shall be held between May 15 and September 1 of each year.</div>
+            </div>
+
+            <a href="PCBA-By-Laws-2015.pdf" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:0.5rem; margin-top:1.5rem; font-size:0.72rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold); text-decoration:none; position:relative; z-index:1;">
+              📄 View Full Bylaws (PDF) →
+            </a>
           </div>
         </div>
         <div class="about-content">
@@ -479,7 +524,7 @@
         <div class="leader-card">
           <div class="leader-avatar">TB</div>
           <div class="leader-name">Teagan Boda</div>
-          <div class="leader-role">Past President · At Large Member</div>
+          <div class="leader-role">Past President</div>
         </div>
 
         <div class="leader-card">
