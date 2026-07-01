@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Annual Dinner Registration — Pueblo County Bar Association</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --night: #1B2A4A; --night-lt: #2D3E5F; --gold: #C8A97E; --gold-dk: #A8845A;
+  --lime: #F7F5F0; --white: #FFFFFF; --gray: #6B7280; --gray-lt: #E5E3DE;
+  --body-txt: #1F2937; --ff-serif: 'Cormorant Garamond', Georgia, serif;
+  --ff-sans: 'Inter', system-ui, sans-serif; --radius: 6px;
+  --shadow: 0 2px 12px rgba(27,42,74,0.10); --shadow-lg: 0 8px 32px rgba(27,42,74,0.16);
+  --green: #166534; --green-lt: #dcfce7;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--ff-sans); background: var(--lime); color: var(--body-txt); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+/* NAV */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(27,42,74,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(200,169,126,0.20); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+.nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.nav-logo-seal { width: 40px; height: 40px; flex-shrink: 0; }
+.nav-logo-text .org { font-family: var(--ff-serif); font-size: 1.05rem; font-weight: 600; color: var(--white); white-space: nowrap; }
+.nav-logo-text .loc { font-size: 0.65rem; font-weight: 500; color: var(--gold); letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; }
+.nav-links { display: flex; align-items: center; gap: 0.25rem; }
+.nav-links a { font-size: 0.8rem; font-weight: 500; color: rgba(255,255,255,0.75); text-decoration: none; padding: 0.4rem 0.8rem; border-radius: 4px; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s, background 0.2s; }
+.nav-links a:hover { color: var(--white); background: rgba(200,169,126,0.12); }
+.nav-cta { background: var(--gold); color: var(--night) !important; font-weight: 600 !important; border-radius: 4px; padding: 0.45rem 1rem !important; }
+.nav-cta:hover { background: var(--gold-dk) !important; color: var(--white) !important; }
+.nav-mobile-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 4px; }
+.nav-mobile-toggle span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: transform 0.25s, opacity 0.25s; }
+.nav-mobile-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-mobile-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-mobile-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.nav-drawer { display: none; position: fixed; left: 0; right: 0; z-index: 98; background: rgba(18,30,52,0.98); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(200,169,126,0.2); padding: 1rem 1.5rem 1.5rem; flex-direction: column; gap: 0.25rem; top: 68px; }
+.nav-drawer.open { display: flex; }
+.nav-drawer a { font-size: 1rem; font-weight: 500; color: rgba(255,255,255,0.8); text-decoration: none; padding: 0.75rem 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.nav-drawer a:last-child { border-bottom: none; }
+.nav-drawer a:hover { color: var(--white); }
+.nav-drawer .drawer-cta { margin-top: 0.75rem; background: var(--gold); color: var(--night) !important; font-weight: 700 !important; border-radius: 6px; text-align: center; padding: 0.9rem !important; border-bottom: none !important; }
+
+/* PAGE HEADER */
+.page-header { background: linear-gradient(165deg, #0D1B2E 0%, #1B2A4A 55%, #253654 100%); padding: 7rem 2rem 4rem; position: relative; overflow: hidden; }
+.page-header::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1400 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M-100,150 C150,130 250,170 400,145 S650,120 800,150 S1050,180 1200,160 S1350,140 1500,155' stroke='%23C8A97E' stroke-width='1' fill='none' opacity='0.12'/%3E%3C/svg%3E") no-repeat center/cover; }
+.page-header-inner { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
+.breadcrumb { display: flex; align-items: center; gap: 0.5rem; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 1.5rem; }
+.breadcrumb a { color: var(--gold); text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+.breadcrumb span { opacity: 0.4; }
+.page-header h1 { font-family: var(--ff-serif); font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 600; color: var(--white); line-height: 1.1; margin-bottom: 0.75rem; }
+.page-header p { font-size: 1rem; color: rgba(255,255,255,0.55); max-width: 520px; font-weight: 300; line-height: 1.7; }
+
+/* EVENT DETAILS STRIP */
+.event-strip { background: var(--gold); padding: 1.25rem 2rem; }
+.event-strip-inner { max-width: 860px; margin: 0 auto; display: flex; gap: 2.5rem; flex-wrap: wrap; align-items: center; }
+.event-detail { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; font-weight: 600; color: var(--night); }
+.event-detail .icon { font-size: 1rem; }
+
+/* MAIN */
+.main { max-width: 860px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+
+/* FORM CARDS */
+.form-card { background: var(--white); border-radius: 12px; box-shadow: var(--shadow); padding: 2.5rem; margin-bottom: 1.5rem; }
+.form-section-title { font-family: var(--ff-serif); font-size: 1.3rem; font-weight: 600; color: var(--night); margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--gray-lt); display: flex; align-items: center; gap: 0.75rem; }
+.section-icon { width: 32px; height: 32px; background: var(--night); border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.section-icon svg { width: 16px; height: 16px; stroke: var(--gold); }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+.form-col-full { grid-column: 1 / -1; }
+.field { display: flex; flex-direction: column; gap: 0.4rem; }
+.field label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray); }
+.field label .required { color: #dc2626; margin-left: 2px; }
+.field input, .field select, .field textarea { padding: 0.7rem 0.9rem; border: 1.5px solid var(--gray-lt); border-radius: var(--radius); font-family: var(--ff-sans); font-size: 0.9rem; color: var(--body-txt); background: var(--lime); transition: border-color 0.2s, background 0.2s; outline: none; width: 100%; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--night); background: var(--white); }
+.field input::placeholder, .field textarea::placeholder { color: #9CA3AF; }
+.field textarea { resize: vertical; min-height: 90px; }
+.field select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.9rem center; padding-right: 2.5rem; }
+.field input.error, .field select.error, .field textarea.error { border-color: #dc2626; }
+
+/* GUEST COUNTER */
+.guest-counter { display: flex; align-items: center; gap: 1rem; }
+.counter-btn { width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid var(--gray-lt); background: var(--white); font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--night); font-weight: 600; transition: all 0.15s; flex-shrink: 0; }
+.counter-btn:hover { border-color: var(--night); background: var(--night); color: var(--white); }
+.counter-display { font-family: var(--ff-serif); font-size: 1.8rem; font-weight: 600; color: var(--night); min-width: 40px; text-align: center; }
+.counter-label { font-size: 0.8rem; color: var(--gray); }
+
+/* TOTAL BOX */
+.total-box { background: var(--night); border-radius: 8px; padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center; margin-top: 1.25rem; }
+.total-label { font-size: 0.8rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.08em; }
+.total-amount { font-family: var(--ff-serif); font-size: 2rem; font-weight: 600; color: var(--gold); }
+
+/* PAYMENT CARD */
+.payment-card { background: var(--night); border-radius: 12px; padding: 2.5rem; margin-bottom: 1.5rem; }
+.payment-card h3 { font-family: var(--ff-serif); font-size: 1.4rem; color: var(--white); margin-bottom: 0.5rem; }
+.payment-card p { font-size: 0.88rem; color: rgba(255,255,255,0.5); margin-bottom: 1.5rem; line-height: 1.6; }
+.payment-options { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem; }
+.payment-option { display: flex; align-items: center; gap: 1rem; background: rgba(255,255,255,0.05); border: 1.5px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 1rem 1.25rem; cursor: pointer; transition: border-color 0.15s; }
+.payment-option.selected { border-color: var(--gold); background: rgba(200,169,126,0.08); }
+.payment-option input[type="radio"] { accent-color: var(--gold); width: 16px; height: 16px; flex-shrink: 0; }
+.payment-option .opt-text .opt-label { font-size: 0.88rem; font-weight: 600; color: var(--white); }
+.payment-option .opt-text .opt-desc { font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-top: 0.1rem; }
+.paypal-btn { display: flex; align-items: center; justify-content: center; gap: 0.6rem; background: #0070ba; color: var(--white); padding: 1rem 1.5rem; border-radius: var(--radius); font-size: 0.9rem; font-weight: 700; text-decoration: none; letter-spacing: 0.03em; transition: background 0.2s; width: 100%; margin-top: 1rem; }
+.paypal-btn:hover { background: #005ea6; }
+.check-instructions { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 1.25rem 1.5rem; margin-top: 0.75rem; }
+.check-instructions h4 { font-size: 0.78rem; font-weight: 600; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem; }
+.check-instructions p { font-size: 0.8rem; color: rgba(255,255,255,0.4); line-height: 1.6; margin: 0; }
+.check-instructions strong { color: rgba(255,255,255,0.65); }
+
+/* SUBMIT */
+.submit-section { background: var(--white); border-radius: 12px; box-shadow: var(--shadow); padding: 2rem 2.5rem; display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+.submit-note { font-size: 0.8rem; color: var(--gray); line-height: 1.5; max-width: 420px; }
+.submit-note a { color: var(--gold-dk); text-decoration: none; }
+.btn-submit { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.9rem 2rem; border-radius: var(--radius); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; border: none; background: var(--night); color: var(--white); transition: background 0.2s; white-space: nowrap; }
+.btn-submit:hover { background: var(--night-lt); }
+
+/* SUCCESS */
+.success-banner { display: none; background: var(--green-lt); border: 1.5px solid #bbf7d0; border-radius: 10px; padding: 1.75rem 2rem; margin-bottom: 2rem; }
+.success-banner.show { display: block; }
+.success-banner h3 { font-family: var(--ff-serif); font-size: 1.3rem; font-weight: 600; color: var(--green); margin-bottom: 0.5rem; }
+.success-banner p { font-size: 0.85rem; color: #166534; line-height: 1.6; }
+
+/* FOOTER */
+.footer { background: #0D1B2E; padding: 3.5rem 2rem 2rem; color: rgba(255,255,255,0.5); }
+.footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.footer-brand .tagline { font-family: var(--ff-serif); font-style: italic; font-size: 1.05rem; color: rgba(255,255,255,0.4); margin-top: 0.75rem; line-height: 1.5; }
+.footer-col h4 { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+.footer-col a { display: block; font-size: 0.82rem; color: rgba(255,255,255,0.45); text-decoration: none; margin-bottom: 0.5rem; transition: color 0.15s; }
+.footer-col a:hover { color: var(--white); }
+.footer-bottom { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding-top: 1.75rem; flex-wrap: wrap; gap: 0.5rem; }
+.footer-bottom p { font-size: 0.75rem; }
+
+@media (max-width: 900px) { .footer-inner { grid-template-columns: 1fr 1fr; } .nav-links { display: none; } .nav-mobile-toggle { display: flex; } }
+@media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } .form-card { padding: 1.5rem; } .payment-card { padding: 1.5rem; } .submit-section { flex-direction: column; align-items: stretch; } .btn-submit { justify-content: center; } .footer-inner { grid-template-columns: 1fr; gap: 2rem; } .event-strip-inner { gap: 1rem; } }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <a class="nav-logo" href="index.html">
+    <svg class="nav-logo-seal" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="19" stroke="#C8A97E" stroke-width="1.5"/><circle cx="20" cy="20" r="14" stroke="#C8A97E" stroke-width="0.75" stroke-dasharray="2 2"/><text x="20" y="24" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="11" font-weight="700" fill="#C8A97E">PCBA</text></svg>
+    <div class="nav-logo-text"><div class="org">Pueblo County Bar Association</div><div class="loc">Established · Pueblo, Colorado</div></div>
+  </a>
+  <div class="nav-links">
+    <a href="directory.html">Find a Lawyer</a>
+    <a href="events.html">Events</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#leadership">Leadership</a>
+    <a href="index.html#resources">Resources</a>
+    <a href="index.html#membership" class="nav-cta">Join / Renew</a>
+  </div>
+  <button class="nav-mobile-toggle" id="menuToggle" aria-label="Menu" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-drawer" id="navDrawer">
+  <a href="directory.html" onclick="closeMenu()">Find a Lawyer</a>
+  <a href="events.html" onclick="closeMenu()">Events</a>
+  <a href="index.html#about" onclick="closeMenu()">About</a>
+  <a href="index.html#leadership" onclick="closeMenu()">Leadership</a>
+  <a href="index.html#resources" onclick="closeMenu()">Resources</a>
+  <a href="index.html#membership" class="drawer-cta" onclick="closeMenu()">Join / Renew</a>
+</div>
+
+<!-- Page Header -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="breadcrumb"><a href="index.html">Home</a><span>›</span><a href="events.html">Events</a><span>›</span>Annual Dinner Registration</div>
+    <h1>Annual Dinner &amp; Awards Registration</h1>
+    <p>Join us for the Pueblo County Bar Association's Annual Dinner and Awards Presentation. Complete the form below to reserve your seats.</p>
+  </div>
+</div>
+
+<!-- Event Details Strip -->
+<div class="event-strip">
+  <div class="event-strip-inner">
+    <div class="event-detail"><span class="icon">📅</span> September 11, 2026</div>
+    <div class="event-detail"><span class="icon">📍</span> Pueblo Riverwalk Boathouse</div>
+    <div class="event-detail"><span class="icon">💰</span> $50 per person</div>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- Success Banner -->
+  <div class="success-banner" id="successBanner">
+    <h3>Registration submitted!</h3>
+    <p>Your registration details have been sent to the PCBA. Please complete your payment below to confirm your seat(s). If you have any questions, contact <a href="mailto:skroeze@colegalserv.org">skroeze@colegalserv.org</a>.</p>
+  </div>
+
+  <!-- Step 1: Your Information -->
+  <div class="form-card">
+    <div class="form-section-title">
+      <div class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+      Your Information
+    </div>
+    <div class="form-grid">
+      <div class="field">
+        <label>First Name <span class="required">*</span></label>
+        <input type="text" id="firstName" placeholder="Jane" />
+      </div>
+      <div class="field">
+        <label>Last Name <span class="required">*</span></label>
+        <input type="text" id="lastName" placeholder="Smith" />
+      </div>
+      <div class="field">
+        <label>Email Address <span class="required">*</span></label>
+        <input type="email" id="email" placeholder="jane@smithlaw.com" />
+      </div>
+      <div class="field">
+        <label>Phone Number</label>
+        <input type="tel" id="phone" placeholder="(719) 555-0100" />
+      </div>
+      <div class="field form-col-full">
+        <label>Association / Firm <span class="required">*</span></label>
+        <input type="text" id="association" placeholder="e.g. Smith & Associates LLC, Pueblo County DA's Office" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 2: Guests -->
+  <div class="form-card">
+    <div class="form-section-title">
+      <div class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      Number of Guests
+    </div>
+    <p style="font-size:0.85rem; color:var(--gray); margin-bottom:1.5rem;">Include yourself in the total count. Each ticket is $50 per person.</p>
+    <div class="guest-counter">
+      <button class="counter-btn" onclick="changeGuests(-1)">−</button>
+      <div class="counter-display" id="guestCount">1</div>
+      <button class="counter-btn" onclick="changeGuests(1)">+</button>
+      <div class="counter-label" id="guestLabel">person attending</div>
+    </div>
+    <div class="total-box">
+      <div class="total-label">Total Due</div>
+      <div class="total-amount" id="totalAmount">$50</div>
+    </div>
+  </div>
+
+  <!-- Step 3: Additional Info -->
+  <div class="form-card">
+    <div class="form-section-title">
+      <div class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+      Additional Details
+    </div>
+    <div class="form-grid">
+      <div class="field form-col-full">
+        <label>Food Allergies or Dietary Restrictions</label>
+        <textarea id="allergies" placeholder="e.g. Gluten-free, nut allergy, vegetarian — list for all guests attending"></textarea>
+      </div>
+      <div class="field form-col-full">
+        <label>Accessibility or Special Accommodations</label>
+        <textarea id="accommodations" placeholder="e.g. Wheelchair access, hearing assistance, seating preference"></textarea>
+      </div>
+      <div class="field form-col-full">
+        <label>Anything Else We Should Know</label>
+        <textarea id="other" placeholder="Any other notes or questions for the organizers"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 4: Payment -->
+  <div class="payment-card">
+    <h3>Payment</h3>
+    <p>Select how you'll pay. Your registration will be submitted when you click the button below, which will open your email client with your details pre-filled. Please complete payment at the same time to confirm your seat(s).</p>
+    <div class="payment-options">
+      <label class="payment-option selected" id="optPaypal">
+        <input type="radio" name="payment" value="paypal" checked onchange="selectPayment(this)" />
+        <div class="opt-text">
+          <div class="opt-label">Pay Online via PayPal</div>
+          <div class="opt-desc">Secure online payment — credit card or PayPal account accepted</div>
+        </div>
+      </label>
+      <label class="payment-option" id="optCheck">
+        <input type="radio" name="payment" value="check" onchange="selectPayment(this)" />
+        <div class="opt-text">
+          <div class="opt-label">Pay by Check</div>
+          <div class="opt-desc">Mail check payable to Pueblo County Bar Association</div>
+        </div>
+      </label>
+    </div>
+
+    <div id="paypalSection">
+      <a href="https://www.paypal.com/ncp/payment/EKRXB4QRAL5BJ" target="_blank" rel="noopener noreferrer" class="paypal-btn" id="paypalBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        Pay $50 via PayPal
+      </a>
+    </div>
+
+    <div id="checkSection" style="display:none;">
+      <div class="check-instructions">
+        <h4>Pay by Check</h4>
+        <p>Make check payable to <strong>Pueblo County Bar Association</strong> and mail to:<br/>
+        <strong>P.O. Box 802, Pueblo, CO 81002</strong><br/>
+        Please include your name and "Annual Dinner 2026" on the memo line.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Submit -->
+  <div class="submit-section">
+    <p class="submit-note">Clicking "Submit Registration" will open your email client with your details pre-filled and addressed to the PCBA. Send that email to complete your registration. Questions? Email <a href="mailto:skroeze@colegalserv.org">skroeze@colegalserv.org</a>.</p>
+    <button class="btn-submit" onclick="submitRegistration()">Submit Registration →</button>
+  </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div style="font-family:var(--ff-serif);font-size:1.2rem;font-weight:600;color:var(--white);">Pueblo County Bar Association</div>
+      <p class="tagline">Serving the legal community<br/>of southeastern Colorado since 1897.</p>
+    </div>
+    <div class="footer-col">
+      <h4>For the Public</h4>
+      <a href="directory.html">Find a Lawyer</a>
+      <a href="lawyer-referral.html">Lawyer Referral</a>
+      <a href="pro-bono.html">Pro Bono Clinics</a>
+      <a href="videos.html">Informative Videos</a>
+    </div>
+    <div class="footer-col">
+      <h4>For Members</h4>
+      <a href="join.html">Join the PCBA</a>
+      <a href="renew.html">Renew Membership</a>
+      <a href="events.html">CLE Calendar</a>
+      <a href="yld.html">Young Lawyers</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:info@pueblobar.org">info@pueblobar.org</a>
+      <a href="tel:7195551234">(719) 555-1234</a>
+      <a href="index.html#about">About the PCBA</a>
+      <a href="index.html#leadership">Leadership</a>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>© 2026 Pueblo County Bar Association. All rights reserved.</p></div>
+</footer>
+
+<script>
+let guests = 1;
+const PRICE = 50;
+
+function changeGuests(delta) {
+  guests = Math.max(1, Math.min(20, guests + delta));
+  document.getElementById('guestCount').textContent = guests;
+  document.getElementById('guestLabel').textContent = guests === 1 ? 'person attending' : 'people attending';
+  document.getElementById('totalAmount').textContent = '$' + (guests * PRICE);
+  // Update PayPal button amount label
+  document.getElementById('paypalBtn').innerHTML = `
+    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+    Pay $${guests * PRICE} via PayPal`;
+}
+
+function selectPayment(radio) {
+  document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('selected'));
+  radio.closest('.payment-option').classList.add('selected');
+  document.getElementById('paypalSection').style.display = radio.value === 'paypal' ? 'block' : 'none';
+  document.getElementById('checkSection').style.display = radio.value === 'check' ? 'block' : 'none';
+}
+
+function submitRegistration() {
+  // Validate required fields
+  const fields = [
+    { id: 'firstName', label: 'First Name' },
+    { id: 'lastName', label: 'Last Name' },
+    { id: 'email', label: 'Email Address' },
+    { id: 'association', label: 'Association / Firm' },
+  ];
+  let missing = false;
+  fields.forEach(f => {
+    const el = document.getElementById(f.id);
+    if (!el.value.trim()) { el.classList.add('error'); missing = true; }
+    else { el.classList.remove('error'); }
+  });
+  if (missing) { alert('Please fill in all required fields before submitting.'); return; }
+
+  // Gather values
+  const firstName = document.getElementById('firstName').value.trim();
+  const lastName  = document.getElementById('lastName').value.trim();
+  const email     = document.getElementById('email').value.trim();
+  const phone     = document.getElementById('phone').value.trim() || 'Not provided';
+  const assoc     = document.getElementById('association').value.trim();
+  const allergies = document.getElementById('allergies').value.trim() || 'None';
+  const accommodations = document.getElementById('accommodations').value.trim() || 'None';
+  const other     = document.getElementById('other').value.trim() || 'None';
+  const payMethod = document.querySelector('input[name="payment"]:checked').value;
+  const payLabel  = payMethod === 'paypal' ? 'Online via PayPal' : 'By Check (mailed)';
+  const total     = guests * PRICE;
+
+  // Build clean formatted email body
+  const subject = encodeURIComponent(`PCBA Annual Dinner Registration — ${firstName} ${lastName}`);
+  const body = encodeURIComponent(
+`PCBA ANNUAL DINNER & AWARDS REGISTRATION
+September 11, 2026 · Pueblo Riverwalk Boathouse
+════════════════════════════════════════
+
+REGISTRANT INFORMATION
+──────────────────────
+Name:           ${firstName} ${lastName}
+Email:          ${email}
+Phone:          ${phone}
+Association:    ${assoc}
+
+ATTENDANCE
+──────────────────────
+Number of Guests:   ${guests} ${guests === 1 ? 'person' : 'people'}
+Price Per Person:   $${PRICE}
+Total Due:          $${total}
+
+DIETARY & ACCESSIBILITY
+──────────────────────
+Food Allergies / Dietary Restrictions:
+${allergies}
+
+Accessibility / Special Accommodations:
+${accommodations}
+
+Additional Notes:
+${other}
+
+PAYMENT
+──────────────────────
+Payment Method:  ${payLabel}
+Payment Status:  ${payMethod === 'paypal' ? '⚠️ PENDING — Please confirm payment was completed via PayPal' : '⚠️ PENDING — Check to be mailed to P.O. Box 802, Pueblo CO 81002'}
+
+════════════════════════════════════════
+This registration was submitted via the PCBA website.
+`);
+
+  // Open email client
+  window.location.href = `mailto:skroeze@colegalserv.org?subject=${subject}&body=${body}`;
+
+  // Show success banner
+  setTimeout(() => {
+    const banner = document.getElementById('successBanner');
+    banner.classList.add('show');
+    banner.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 500);
+}
+
+function toggleMenu() { document.getElementById('menuToggle').classList.toggle('open'); document.getElementById('navDrawer').classList.toggle('open'); }
+function closeMenu() { document.getElementById('menuToggle').classList.remove('open'); document.getElementById('navDrawer').classList.remove('open'); }
+</script>
+</body>
+</html>
