@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -177,7 +178,7 @@ body { font-family: var(--ff-sans); background: var(--lime); color: var(--body-t
   <div class="event-strip-inner">
     <div class="event-detail"><span class="icon">📅</span> September 11, 2026</div>
     <div class="event-detail"><span class="icon">📍</span> Pueblo Riverwalk Boathouse</div>
-    <div class="event-detail"><span class="icon">💰</span> $50 per person</div>
+    <div class="event-detail"><span class="icon">💰</span> $50 per person · $375 table of 8</div>
   </div>
 </div>
 
@@ -219,21 +220,55 @@ body { font-family: var(--ff-sans); background: var(--lime); color: var(--body-t
     </div>
   </div>
 
-  <!-- Step 2: Guests -->
+  <!-- Step 2: Tickets -->
   <div class="form-card">
     <div class="form-section-title">
       <div class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-      Number of Guests
+      Ticket Selection
     </div>
-    <p style="font-size:0.85rem; color:var(--gray); margin-bottom:1.5rem;">Include yourself in the total count. Each ticket is $50 per person.</p>
-    <div class="guest-counter">
-      <button class="counter-btn" onclick="changeGuests(-1)">−</button>
-      <div class="counter-display" id="guestCount">1</div>
-      <button class="counter-btn" onclick="changeGuests(1)">+</button>
-      <div class="counter-label" id="guestLabel">person attending</div>
+
+    <!-- Ticket type cards -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.75rem;">
+
+      <div class="ticket-card selected" id="ticketIndividual" onclick="selectTicketType('individual')" style="background:var(--night); border:2px solid var(--gold); border-radius:10px; padding:1.5rem; cursor:pointer; transition:all 0.15s;">
+        <div style="font-size:0.65rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold); margin-bottom:0.4rem;">Individual</div>
+        <div style="font-family:var(--ff-serif); font-size:2rem; font-weight:600; color:var(--white); line-height:1; margin-bottom:0.3rem;">$50</div>
+        <div style="font-size:0.78rem; color:rgba(255,255,255,0.55);">Per person · Add as many as you need</div>
+      </div>
+
+      <div class="ticket-card" id="ticketTable" onclick="selectTicketType('table')" style="background:var(--lime); border:2px solid var(--gray-lt); border-radius:10px; padding:1.5rem; cursor:pointer; transition:all 0.15s; position:relative; overflow:hidden;">
+        <div style="position:absolute; top:0.6rem; right:0.6rem; background:var(--gold); color:var(--night); font-size:0.6rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:0.2rem 0.55rem; border-radius:999px;">Save $25</div>
+        <div style="font-size:0.65rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold-dk); margin-bottom:0.4rem;">Table of 8</div>
+        <div style="font-family:var(--ff-serif); font-size:2rem; font-weight:600; color:var(--night); line-height:1; margin-bottom:0.3rem;">$375</div>
+        <div style="font-size:0.78rem; color:var(--gray);">Reserved table · 8 seats · $46.88/person</div>
+      </div>
+
     </div>
-    <div class="total-box">
-      <div class="total-label">Total Due</div>
+
+    <!-- Individual guest counter — shown when Individual is selected -->
+    <div id="individualControls">
+      <p style="font-size:0.85rem; color:var(--gray); margin-bottom:1.25rem;">Include yourself in the total count.</p>
+      <div class="guest-counter">
+        <button class="counter-btn" onclick="changeGuests(-1)">−</button>
+        <div class="counter-display" id="guestCount">1</div>
+        <button class="counter-btn" onclick="changeGuests(1)">+</button>
+        <div class="counter-label" id="guestLabel">person attending</div>
+      </div>
+    </div>
+
+    <!-- Table info — shown when Table is selected -->
+    <div id="tableControls" style="display:none;">
+      <p style="font-size:0.85rem; color:var(--gray); margin-bottom:0.75rem;">One reserved table seats 8 guests. If you need multiple tables please submit a separate registration or contact us directly.</p>
+      <div style="background:var(--lime); border-radius:8px; padding:1rem 1.25rem; font-size:0.83rem; color:var(--night); display:flex; align-items:center; gap:0.5rem;">
+        🪑 <strong>8 reserved seats</strong> at your table
+      </div>
+    </div>
+
+    <div class="total-box" style="margin-top:1.5rem;">
+      <div>
+        <div class="total-label">Total Due</div>
+        <div style="font-size:0.72rem; color:rgba(255,255,255,0.35); margin-top:0.15rem;" id="totalBreakdown">1 ticket × $50</div>
+      </div>
       <div class="total-amount" id="totalAmount">$50</div>
     </div>
   </div>
@@ -340,17 +375,66 @@ body { font-family: var(--ff-sans); background: var(--lime); color: var(--body-t
 
 <script>
 let guests = 1;
-const PRICE = 50;
+let ticketType = 'individual'; // 'individual' or 'table'
+const PRICE_INDIVIDUAL = 50;
+const PRICE_TABLE = 375;
+const TABLE_SEATS = 8;
+
+function getTotal() {
+  return ticketType === 'table' ? PRICE_TABLE : guests * PRICE_INDIVIDUAL;
+}
+
+function getBreakdown() {
+  return ticketType === 'table'
+    ? `Table of ${TABLE_SEATS} · $375 flat rate`
+    : `${guests} ticket${guests !== 1 ? 's' : ''} × $${PRICE_INDIVIDUAL}`;
+}
+
+function selectTicketType(type) {
+  ticketType = type;
+
+  // Update card styles
+  const indCard = document.getElementById('ticketIndividual');
+  const tblCard = document.getElementById('ticketTable');
+  if (type === 'individual') {
+    indCard.style.background = 'var(--night)';
+    indCard.style.borderColor = 'var(--gold)';
+    indCard.querySelector('div:first-child').style.color = 'var(--gold)';
+    indCard.querySelector('div:nth-child(2)').style.color = 'var(--white)';
+    tblCard.style.background = 'var(--lime)';
+    tblCard.style.borderColor = 'var(--gray-lt)';
+    document.getElementById('individualControls').style.display = 'block';
+    document.getElementById('tableControls').style.display = 'none';
+  } else {
+    tblCard.style.background = 'var(--night)';
+    tblCard.style.borderColor = 'var(--gold)';
+    tblCard.querySelector('div:nth-child(2)').style.color = 'var(--gold)';
+    tblCard.querySelector('div:nth-child(3)').style.color = 'var(--white)';
+    tblCard.querySelector('div:nth-child(4)').style.color = 'rgba(255,255,255,0.55)';
+    indCard.style.background = 'var(--lime)';
+    indCard.style.borderColor = 'var(--gray-lt)';
+    indCard.querySelector('div:first-child').style.color = 'var(--gold-dk)';
+    indCard.querySelector('div:nth-child(2)').style.color = 'var(--night)';
+    document.getElementById('individualControls').style.display = 'none';
+    document.getElementById('tableControls').style.display = 'block';
+  }
+  updateTotals();
+}
 
 function changeGuests(delta) {
   guests = Math.max(1, Math.min(20, guests + delta));
   document.getElementById('guestCount').textContent = guests;
   document.getElementById('guestLabel').textContent = guests === 1 ? 'person attending' : 'people attending';
-  document.getElementById('totalAmount').textContent = '$' + (guests * PRICE);
-  // Update PayPal button amount label
+  updateTotals();
+}
+
+function updateTotals() {
+  const total = getTotal();
+  document.getElementById('totalAmount').textContent = '$' + total;
+  document.getElementById('totalBreakdown').textContent = getBreakdown();
   document.getElementById('paypalBtn').innerHTML = `
     <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-    Pay $${guests * PRICE} via PayPal`;
+    Pay $${total} via PayPal`;
 }
 
 function selectPayment(radio) {
@@ -361,12 +445,9 @@ function selectPayment(radio) {
 }
 
 function submitRegistration() {
-  // Validate required fields
   const fields = [
-    { id: 'firstName', label: 'First Name' },
-    { id: 'lastName', label: 'Last Name' },
-    { id: 'email', label: 'Email Address' },
-    { id: 'association', label: 'Association / Firm' },
+    { id: 'firstName' }, { id: 'lastName' },
+    { id: 'email' }, { id: 'association' },
   ];
   let missing = false;
   fields.forEach(f => {
@@ -376,7 +457,6 @@ function submitRegistration() {
   });
   if (missing) { alert('Please fill in all required fields before submitting.'); return; }
 
-  // Gather values
   const firstName = document.getElementById('firstName').value.trim();
   const lastName  = document.getElementById('lastName').value.trim();
   const email     = document.getElementById('email').value.trim();
@@ -387,9 +467,12 @@ function submitRegistration() {
   const other     = document.getElementById('other').value.trim() || 'None';
   const payMethod = document.querySelector('input[name="payment"]:checked').value;
   const payLabel  = payMethod === 'paypal' ? 'Online via PayPal' : 'By Check (mailed)';
-  const total     = guests * PRICE;
+  const total     = getTotal();
+  const ticketDesc = ticketType === 'table'
+    ? `Table of 8 (reserved) — $375 flat rate`
+    : `${guests} individual ticket${guests !== 1 ? 's' : ''} — $${PRICE_INDIVIDUAL} each`;
+  const seatsDesc = ticketType === 'table' ? `8 (reserved table)` : `${guests}`;
 
-  // Build clean formatted email body
   const subject = encodeURIComponent(`PCBA Annual Dinner Registration — ${firstName} ${lastName}`);
   const body = encodeURIComponent(
 `PCBA ANNUAL DINNER & AWARDS REGISTRATION
@@ -403,11 +486,11 @@ Email:          ${email}
 Phone:          ${phone}
 Association:    ${assoc}
 
-ATTENDANCE
+TICKET SELECTION
 ──────────────────────
-Number of Guests:   ${guests} ${guests === 1 ? 'person' : 'people'}
-Price Per Person:   $${PRICE}
-Total Due:          $${total}
+Ticket Type:    ${ticketDesc}
+Total Seats:    ${seatsDesc}
+Total Due:      $${total}
 
 DIETARY & ACCESSIBILITY
 ──────────────────────
@@ -423,16 +506,14 @@ ${other}
 PAYMENT
 ──────────────────────
 Payment Method:  ${payLabel}
-Payment Status:  ${payMethod === 'paypal' ? '⚠️ PENDING — Please confirm payment was completed via PayPal' : '⚠️ PENDING — Check to be mailed to P.O. Box 802, Pueblo CO 81002'}
+Payment Status:  ${payMethod === 'paypal' ? '⚠️ PENDING — Please confirm payment of $' + total + ' was completed via PayPal' : '⚠️ PENDING — Check for $' + total + ' to be mailed to P.O. Box 802, Pueblo CO 81002'}
 
 ════════════════════════════════════════
 This registration was submitted via the PCBA website.
 `);
 
-  // Open email client
   window.location.href = `mailto:skroeze@colegalserv.org?subject=${subject}&body=${body}`;
 
-  // Show success banner
   setTimeout(() => {
     const banner = document.getElementById('successBanner');
     banner.classList.add('show');
