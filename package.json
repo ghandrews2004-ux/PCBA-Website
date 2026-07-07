@@ -1,0 +1,8 @@
+{
+  "name": "pcba-website",
+  "version": "1.0.0",
+  "description": "Pueblo County Bar Association Website",
+  "dependencies": {
+    "nodemailer": "^6.9.7"
+  }
+}
