@@ -491,7 +491,7 @@ body {
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2026 Pueblo County Bar Association. All rights reserved.</p>
+    <p>© 2025 Pueblo County Bar Association. All rights reserved.</p>
   </div>
 </footer>
 
@@ -515,20 +515,55 @@ function confirmRenewal() {
   let missing = false;
   required.forEach(id => {
     const el = document.getElementById(id);
-    if (!el.value.trim()) {
-      el.style.borderColor = '#dc2626';
-      missing = true;
-    } else {
-      el.style.borderColor = '';
-    }
+    if (!el.value.trim()) { el.style.borderColor = '#dc2626'; missing = true; }
+    else { el.style.borderColor = ''; }
   });
-  if (missing) {
-    alert('Please fill in all required fields.');
-    return;
-  }
-  const banner = document.getElementById('successBanner');
-  banner.classList.add('show');
-  banner.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (missing) { alert('Please fill in all required fields.'); return; }
+
+  const btn = document.querySelector('.btn-submit');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
+  const select = document.getElementById('memberType');
+  const amount = select.value;
+  const memberType = select.options[select.selectedIndex].text;
+  const payMethod = document.querySelector('input[name="payment"]:checked') ?
+    document.querySelector('input[name="payment"]:checked').value : 'paypal';
+
+  fetch('/api/send-email', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      formType: 'renew',
+      fields: {
+        firstName:  document.getElementById('firstName').value.trim(),
+        lastName:   document.getElementById('lastName').value.trim(),
+        email:      document.getElementById('email').value.trim(),
+        barNumber:  document.getElementById('barNumber').value.trim(),
+        memberType,
+        amount,
+        payMethod,
+      }
+    })
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.success) {
+      const banner = document.getElementById('successBanner');
+      banner.classList.add('show');
+      banner.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      btn.textContent = 'Confirmed ✓';
+    } else {
+      alert('Something went wrong. Please email info@pueblobar.org directly.');
+      btn.textContent = 'Confirm Details →';
+      btn.disabled = false;
+    }
+  })
+  .catch(() => {
+    alert('Something went wrong. Please email info@pueblobar.org directly.');
+    btn.textContent = 'Confirm Details →';
+    btn.disabled = false;
+  });
 }
 
 function toggleMenu() {
