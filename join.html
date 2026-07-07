@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -548,11 +549,11 @@ body {
         </div>
       </div>
     </div>
-    <a href="https://www.paypal.com/ncp/payment/EKRXB4QRAL5BJ" target="_blank" rel="noopener noreferrer" class="paypal-btn" id="paypalBtn">
+    <a href="https://paypal.me/PuebloBar/100" target="_blank" rel="noopener noreferrer" class="paypal-btn" id="paypalBtn">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>
       </svg>
-      Pay Dues via PayPal
+      Pay $100 via PayPal
     </a>
     <p style="font-size:0.75rem; color:rgba(255,255,255,0.35); margin-top:1rem;">
       Prefer to pay by check? Make payable to <strong style="color:rgba(255,255,255,0.6);">Pueblo County Bar Association</strong> and mail to P.O. Box 802, Pueblo, CO 81002.
@@ -616,7 +617,13 @@ function selectType(card, type, dues) {
   const typeNames = { active: 'Active Member', 'public-servant': 'Public Servant Member' };
   document.getElementById('selectedTypeName').textContent = typeNames[type];
   document.getElementById('duesAmount').textContent = '$' + dues + (type === 'public-servant' ? '*' : '');
-  document.getElementById('paypalBtn').style.display = 'flex';
+  const btn = document.getElementById('paypalBtn');
+  btn.href = `https://paypal.me/PuebloBar/${dues}`;
+  btn.innerHTML = `
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>
+    </svg>
+    Pay $${dues} via PayPal`;
 }
 
 function submitApplication() {
@@ -676,6 +683,8 @@ function submitApplication() {
     btn.textContent = 'Submit Application →';
     btn.disabled = false;
   });
+}
+  // Success handled by fetch callback
 }
 
 function toggleMenu() {
