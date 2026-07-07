@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -601,7 +600,7 @@ body {
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2026 Pueblo County Bar Association. All rights reserved.</p>
+    <p>© 2025 Pueblo County Bar Association. All rights reserved.</p>
   </div>
 </footer>
 
@@ -621,29 +620,64 @@ function selectType(card, type, dues) {
 }
 
 function submitApplication() {
-  const required = ['firstName', 'lastName', 'email', 'phone', 'address', 'city', 'zip'];
+  const required = ['firstName', 'lastName', 'email', 'phone', 'address', 'city', 'zip', 'barNumber', 'yearAdmitted'];
   let missing = false;
   required.forEach(id => {
     const el = document.getElementById(id);
-    if (!el.value.trim()) {
-      el.style.borderColor = '#dc2626';
-      missing = true;
-    } else {
-      el.style.borderColor = '';
-    }
+    if (!el.value.trim()) { el.style.borderColor = '#dc2626'; missing = true; }
+    else { el.style.borderColor = ''; }
   });
-  const barNum = document.getElementById('barNumber');
-  if (!barNum.value.trim()) { barNum.style.borderColor = '#dc2626'; missing = true; }
-  const yearAdm = document.getElementById('yearAdmitted');
-  if (!yearAdm.value.trim()) { yearAdm.style.borderColor = '#dc2626'; missing = true; }
-  if (missing) {
-    alert('Please fill in all required fields before submitting.');
-    return;
-  }
-  // Show success
-  const banner = document.getElementById('successBanner');
-  banner.classList.add('show');
-  banner.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (missing) { alert('Please fill in all required fields before submitting.'); return; }
+
+  const btn = document.querySelector('.btn-submit');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
+  const payMethod = selectedDues === 0 ? 'complimentary' : 'paypal';
+
+  fetch('/api/send-email', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      formType: 'join',
+      fields: {
+        firstName:    document.getElementById('firstName').value.trim(),
+        lastName:     document.getElementById('lastName').value.trim(),
+        email:        document.getElementById('email').value.trim(),
+        phone:        document.getElementById('phone').value.trim(),
+        address:      document.getElementById('address').value.trim(),
+        city:         document.getElementById('city').value.trim(),
+        zip:          document.getElementById('zip').value.trim(),
+        memberType:   selectedType,
+        firm:         document.getElementById('firm').value.trim(),
+        barNumber:    document.getElementById('barNumber').value.trim(),
+        yearAdmitted: document.getElementById('yearAdmitted').value.trim(),
+        practiceArea: document.getElementById('practiceArea').value,
+        directoryOpt: document.getElementById('directoryOpt').value,
+        payMethod,
+      }
+    })
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.success) {
+      const banner = document.getElementById('successBanner');
+      banner.classList.add('show');
+      banner.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      btn.textContent = 'Submitted ✓';
+    } else {
+      alert('Something went wrong. Please email info@pueblobar.org directly.');
+      btn.textContent = 'Submit Application →';
+      btn.disabled = false;
+    }
+  })
+  .catch(() => {
+    alert('Something went wrong. Please email info@pueblobar.org directly.');
+    btn.textContent = 'Submit Application →';
+    btn.disabled = false;
+  });
+}
+  // Success handled by fetch callback
 }
 
 function toggleMenu() {
