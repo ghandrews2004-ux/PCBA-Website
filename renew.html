@@ -436,11 +436,12 @@ body {
       </div>
       <div class="summary-amount" id="summaryAmount">$100</div>
     </div>
-    <a href="https://www.paypal.com/ncp/payment/EKRXB4QRAL5BJ" target="_blank" rel="noopener noreferrer" class="paypal-btn" id="paypalBtn">
+    <a href="https://paypal.me/PuebloBar/100" target="_blank" rel="noopener noreferrer" class="paypal-btn" id="paypalBtn">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>
       </svg>
       Pay $100 via PayPal
+    </a>
     </a>
     <div class="check-instructions">
       <h4>Pay by Check</h4>
@@ -503,6 +504,7 @@ function updateDues() {
   document.getElementById('summaryType').textContent = typeText + ' · 2026–2027';
   document.getElementById('summaryAmount').textContent = '$' + amount;
   document.getElementById('paypalBtn').style.display = 'flex';
+  document.getElementById('paypalBtn').href = `https://paypal.me/PuebloBar/${amount}`;
   document.getElementById('paypalBtn').innerHTML = `
     <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px">
       <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>
