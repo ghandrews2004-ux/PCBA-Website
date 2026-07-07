@@ -317,7 +317,7 @@ body { font-family: var(--ff-sans); background: var(--lime); color: var(--body-t
     </div>
 
     <div id="paypalSection">
-      <a href="https://www.paypal.com/paypalme/PuebloCountyBar" target="_blank" rel="noopener noreferrer" class="paypal-btn" id="paypalBtn">
+      <a href="https://www.paypal.com/ncp/payment/EKRXB4QRAL5BJ" target="_blank" rel="noopener noreferrer" class="paypal-btn" id="paypalBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
         Pay $50 via PayPal
       </a>
@@ -457,68 +457,51 @@ function submitRegistration() {
   });
   if (missing) { alert('Please fill in all required fields before submitting.'); return; }
 
-  const firstName = document.getElementById('firstName').value.trim();
-  const lastName  = document.getElementById('lastName').value.trim();
-  const email     = document.getElementById('email').value.trim();
-  const phone     = document.getElementById('phone').value.trim() || 'Not provided';
-  const assoc     = document.getElementById('association').value.trim();
-  const allergies = document.getElementById('allergies').value.trim() || 'None';
-  const accommodations = document.getElementById('accommodations').value.trim() || 'None';
-  const other     = document.getElementById('other').value.trim() || 'None';
+  const btn = document.querySelector('.btn-submit');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
   const payMethod = document.querySelector('input[name="payment"]:checked').value;
-  const payLabel  = payMethod === 'paypal' ? 'Online via PayPal' : 'By Check (mailed)';
-  const total     = getTotal();
-  const ticketDesc = ticketType === 'table'
-    ? `Table of 8 (reserved) — $375 flat rate`
-    : `${guests} individual ticket${guests !== 1 ? 's' : ''} — $${PRICE_INDIVIDUAL} each`;
-  const seatsDesc = ticketType === 'table' ? `8 (reserved table)` : `${guests}`;
 
-  const subject = encodeURIComponent(`PCBA Annual Dinner Registration — ${firstName} ${lastName}`);
-  const body = encodeURIComponent(
-`PCBA ANNUAL DINNER & AWARDS REGISTRATION
-September 11, 2026 · Pueblo Riverwalk Boathouse
-════════════════════════════════════════
-
-REGISTRANT INFORMATION
-──────────────────────
-Name:           ${firstName} ${lastName}
-Email:          ${email}
-Phone:          ${phone}
-Association:    ${assoc}
-
-TICKET SELECTION
-──────────────────────
-Ticket Type:    ${ticketDesc}
-Total Seats:    ${seatsDesc}
-Total Due:      $${total}
-
-DIETARY & ACCESSIBILITY
-──────────────────────
-Food Allergies / Dietary Restrictions:
-${allergies}
-
-Accessibility / Special Accommodations:
-${accommodations}
-
-Additional Notes:
-${other}
-
-PAYMENT
-──────────────────────
-Payment Method:  ${payLabel}
-Payment Status:  ${payMethod === 'paypal' ? '⚠️ PENDING — Please confirm payment of $' + total + ' was completed via PayPal' : '⚠️ PENDING — Check for $' + total + ' to be mailed to P.O. Box 802, Pueblo CO 81002'}
-
-════════════════════════════════════════
-This registration was submitted via the PCBA website.
-`);
-
-  window.location.href = `mailto:skroeze@colegalserv.org?subject=${subject}&body=${body}`;
-
-  setTimeout(() => {
-    const banner = document.getElementById('successBanner');
-    banner.classList.add('show');
-    banner.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 500);
+  fetch('/api/send-email', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      formType: 'dinner',
+      fields: {
+        firstName:      document.getElementById('firstName').value.trim(),
+        lastName:       document.getElementById('lastName').value.trim(),
+        email:          document.getElementById('email').value.trim(),
+        phone:          document.getElementById('phone').value.trim(),
+        association:    document.getElementById('association').value.trim(),
+        ticketType,
+        guests,
+        total:          getTotal(),
+        allergies:      document.getElementById('allergies').value.trim(),
+        accommodations: document.getElementById('accommodations').value.trim(),
+        other:          document.getElementById('other').value.trim(),
+        payMethod,
+      }
+    })
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.success) {
+      const banner = document.getElementById('successBanner');
+      banner.classList.add('show');
+      banner.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      btn.textContent = 'Submitted ✓';
+    } else {
+      alert('Something went wrong. Please email info@pueblobar.org directly.');
+      btn.textContent = 'Submit Registration →';
+      btn.disabled = false;
+    }
+  })
+  .catch(() => {
+    alert('Something went wrong. Please email info@pueblobar.org directly.');
+    btn.textContent = 'Submit Registration →';
+    btn.disabled = false;
+  });
 }
 
 function toggleMenu() { document.getElementById('menuToggle').classList.toggle('open'); document.getElementById('navDrawer').classList.toggle('open'); }
