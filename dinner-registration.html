@@ -317,7 +317,7 @@ body { font-family: var(--ff-sans); background: var(--lime); color: var(--body-t
     </div>
 
     <div id="paypalSection">
-      <a href="https://www.paypal.com/ncp/payment/EKRXB4QRAL5BJ" target="_blank" rel="noopener noreferrer" class="paypal-btn" id="paypalBtn">
+      <a href="https://paypal.me/PuebloBar/50" target="_blank" rel="noopener noreferrer" class="paypal-btn" id="paypalBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
         Pay $50 via PayPal
       </a>
@@ -432,7 +432,9 @@ function updateTotals() {
   const total = getTotal();
   document.getElementById('totalAmount').textContent = '$' + total;
   document.getElementById('totalBreakdown').textContent = getBreakdown();
-  document.getElementById('paypalBtn').innerHTML = `
+  const btn = document.getElementById('paypalBtn');
+  btn.href = `https://paypal.me/PuebloBar/${total}`;
+  btn.innerHTML = `
     <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
     Pay $${total} via PayPal`;
 }
