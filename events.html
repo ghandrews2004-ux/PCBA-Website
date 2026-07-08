@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
 <title>Events Calendar — Pueblo County Bar Association</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -754,7 +758,7 @@ function renderCalendar() {
   grid.innerHTML = html;
 }
 
-// ── POPOVER ──────────────────────────────────────────────────────────────────
+// ── POPOVER ────────────────────────────────────────────────────��─────────────
 function openPopover(id) {
   const e = EVENTS.find(ev => ev.id === id);
   if (!e) return;
