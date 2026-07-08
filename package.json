@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Pueblo County Bar Association Website",
   "dependencies": {
+    "@vercel/speed-insights": "^2.0.0",
     "nodemailer": "^6.9.7"
   }
 }
