@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +8,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <script type="module" src="/speed-insights.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -82,12 +80,21 @@
 
     /* FIND A LAWYER */
     .find-section { background: var(--lime); }
-    .directory-cta-box { background: var(--white); border-radius: 12px; padding: 3rem 2.5rem; box-shadow: var(--shadow); display: flex; justify-content: space-between; align-items: center; gap: 2rem; flex-wrap: wrap; }
-    .directory-cta-box .cta-text h3 { font-family: var(--ff-serif); font-size: 1.6rem; font-weight: 600; color: var(--night); margin-bottom: 0.5rem; }
-    .directory-cta-box .cta-text p { font-size: 0.9rem; color: var(--gray); line-height: 1.65; max-width: 500px; }
-    .directory-cta-box .cta-actions { display: flex; flex-direction: column; gap: 0.75rem; flex-shrink: 0; }
-    .area-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
-    .area-tag { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.3rem 0.8rem; background: var(--lime); color: var(--night-lt); border-radius: 999px; border: 1.5px solid var(--gray-lt); }
+    .filter-row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .filter-chip { padding: 0.45rem 1rem; border-radius: 999px; font-size: 0.78rem; font-weight: 500; border: 1.5px solid var(--gray-lt); background: var(--white); color: var(--gray); cursor: pointer; transition: all 0.15s; user-select: none; }
+    .filter-chip:hover, .filter-chip.active { border-color: var(--night); background: var(--night); color: var(--white); }
+    .filter-chip.active { font-weight: 600; }
+    .lawyers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem; }
+    .lawyer-card { background: var(--white); border-radius: 10px; padding: 1.75rem; box-shadow: var(--shadow); transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; }
+    .lawyer-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+    .lawyer-avatar { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, var(--night), var(--night-lt)); display: flex; align-items: center; justify-content: center; font-family: var(--ff-serif); font-size: 1.4rem; font-weight: 600; color: var(--gold); margin-bottom: 1rem; flex-shrink: 0; }
+    .lawyer-name { font-family: var(--ff-serif); font-size: 1.2rem; font-weight: 600; color: var(--night); margin-bottom: 0.2rem; }
+    .lawyer-firm { font-size: 0.8rem; color: var(--gray); margin-bottom: 0.75rem; }
+    .lawyer-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.25rem; }
+    .lawyer-tag { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.25rem 0.65rem; background: var(--lime); color: var(--night-lt); border-radius: 4px; border: 1px solid var(--gray-lt); }
+    .lawyer-contact { margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--gray-lt); font-size: 0.8rem; color: var(--gray); display: flex; justify-content: space-between; align-items: center; }
+    .lawyer-contact a { font-size: 0.78rem; font-weight: 600; color: var(--gold-dk); text-decoration: none; }
+    .lawyers-cta { text-align: left; margin-top: 0.5rem; }
 
     /* EVENTS */
     .events-section { background: var(--night); }
@@ -207,9 +214,6 @@
       .path-card:first-child { border-right: none; border-bottom: 1px solid var(--gray-lt); }
       .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
       .hero-h1 { font-size: 2.4rem; }
-      .directory-cta-box { flex-direction: column; }
-      .directory-cta-box .cta-actions { width: 100%; }
-      .directory-cta-box .cta-actions .btn { justify-content: center; }
     }
   </style>
 </head>
@@ -309,7 +313,7 @@
     <div class="hero-stats">
       <div class="hero-stat"><div class="num">50+</div><div class="lbl">Member Attorneys</div></div>
       <div class="hero-stat"><div class="num">125+</div><div class="lbl">Years Serving Pueblo</div></div>
-      <div class="hero-stat"><div class="num">23</div><div class="lbl">Practice Areas</div></div>
+      <div class="hero-stat"><div class="num">19</div><div class="lbl">Practice Areas</div></div>
     </div>
   </section>
 
@@ -341,36 +345,47 @@
     </div>
   </div>
 
-  <!-- Find a Lawyer -->
+  <!-- Find a Lawyer — interactive filter + attorney cards -->
   <section class="find-section" id="find">
     <div class="section-inner">
       <div class="section-eyebrow">Member Directory</div>
       <h2 class="section-h2">Find a Lawyer in Pueblo</h2>
-      <p class="section-lead">All attorneys listed are licensed members of the Pueblo County Bar Association. Search and filter by practice area to find the right fit for your situation.</p>
-      <div class="directory-cta-box">
-        <div class="cta-text">
-          <h3>50 attorneys across 19 practice areas</h3>
-          <p>Our full directory lets you search by name and filter by specialty — from Family Law and Criminal Defense to Estate Planning, Bankruptcy, Immigration, and more.</p>
-          <div class="area-tags">
-            <span class="area-tag">Family Law</span>
-            <span class="area-tag">Criminal</span>
-            <span class="area-tag">Bankruptcy</span>
-            <span class="area-tag">Estate Planning</span>
-            <span class="area-tag">Personal Injury</span>
-            <span class="area-tag">Real Estate</span>
-            <span class="area-tag">Immigration</span>
-            <span class="area-tag">Elder Law</span>
-            <span class="area-tag">Probate</span>
-            <span class="area-tag">Corporate</span>
-            <span class="area-tag">Workers Comp</span>
-            <span class="area-tag">Mediation</span>
-            <span class="area-tag">+ more</span>
-          </div>
-        </div>
-        <div class="cta-actions">
-          <a href="directory.html" class="btn btn-primary">Browse the Full Directory →</a>
-          <a href="lawyer-referral.html" class="btn btn-outline">Not sure where to start?</a>
-        </div>
+      <p class="section-lead">All attorneys listed are licensed members of the Pueblo County Bar Association. Click a practice area below to find the right attorney for your situation.</p>
+
+      <div class="filter-row" id="filterRow">
+        <div class="filter-chip active" onclick="filterLawyers('all', this)">All Practice Areas</div>
+        <div class="filter-chip" onclick="filterLawyers('Administrative Abuse', this)">Administrative Abuse</div>
+        <div class="filter-chip" onclick="filterLawyers('Adoption', this)">Adoption</div>
+        <div class="filter-chip" onclick="filterLawyers('Bankruptcy', this)">Bankruptcy</div>
+        <div class="filter-chip" onclick="filterLawyers('Civil Rights', this)">Civil Rights</div>
+        <div class="filter-chip" onclick="filterLawyers('Construction Law', this)">Construction Law</div>
+        <div class="filter-chip" onclick="filterLawyers('Consumer', this)">Consumer</div>
+        <div class="filter-chip" onclick="filterLawyers('Corporate', this)">Corporate</div>
+        <div class="filter-chip" onclick="filterLawyers('Criminal', this)">Criminal</div>
+        <div class="filter-chip" onclick="filterLawyers('Elder Law', this)">Elder Law</div>
+        <div class="filter-chip" onclick="filterLawyers('Employment', this)">Employment</div>
+        <div class="filter-chip" onclick="filterLawyers('Family Law', this)">Family Law</div>
+        <div class="filter-chip" onclick="filterLawyers('Foreclosures', this)">Foreclosures</div>
+        <div class="filter-chip" onclick="filterLawyers('Immigration', this)">Immigration</div>
+        <div class="filter-chip" onclick="filterLawyers('Insurance Bad Faith', this)">Insurance Bad Faith</div>
+        <div class="filter-chip" onclick="filterLawyers('Landlord/Tenant', this)">Landlord/Tenant</div>
+        <div class="filter-chip" onclick="filterLawyers('Mediation', this)">Mediation</div>
+        <div class="filter-chip" onclick="filterLawyers('Medical Malpractice', this)">Medical Malpractice</div>
+        <div class="filter-chip" onclick="filterLawyers('Personal Injury', this)">Personal Injury</div>
+        <div class="filter-chip" onclick="filterLawyers('Premises Liability', this)">Premises Liability</div>
+        <div class="filter-chip" onclick="filterLawyers('Probate', this)">Probate</div>
+        <div class="filter-chip" onclick="filterLawyers('Product Liability', this)">Product Liability</div>
+        <div class="filter-chip" onclick="filterLawyers('Real Estate', this)">Real Estate</div>
+        <div class="filter-chip" onclick="filterLawyers('Social Security', this)">Social Security</div>
+        <div class="filter-chip" onclick="filterLawyers('Wills & Estate Planning', this)">Wills &amp; Estate</div>
+        <div class="filter-chip" onclick="filterLawyers('Workers Compensation', this)">Workers Comp</div>
+      </div>
+
+      <div class="lawyers-grid" id="lawyersGrid" style="display:none; margin-bottom:2rem;"></div>
+
+      <div class="lawyers-cta">
+        <a href="directory.html" class="btn btn-primary">View Full Directory →</a>
+        <a href="lawyer-referral.html" class="btn btn-outline" style="margin-left:0.75rem;">Not sure where to start?</a>
       </div>
     </div>
   </section>
@@ -409,7 +424,7 @@
             <div class="event-type">Annual Dinner</div>
             <div class="event-title">Annual Dinner and Awards Presentation</div>
             <div class="event-meta">September 11, 2026<br/>Pueblo Riverwalk Boathouse</div>
-            <a href="dinner-registration.html" class="event-register">Register now</a>
+            <a href="#" class="event-register">Register now</a>
           </div>
         </div>
 
@@ -526,7 +541,7 @@
         <div class="leader-card">
           <div class="leader-avatar">TB</div>
           <div class="leader-name">Teagan Boda</div>
-          <div class="leader-role">Past President - At Large Member</div>
+          <div class="leader-role">Past President</div>
         </div>
 
         <div class="leader-card">
@@ -659,6 +674,92 @@
   </footer>
 
   <script>
+    // ── ATTORNEY DATA ─────────────────────────────────────────────────────
+    const ATTORNEYS = [
+      {name:"Alderton, Danita",phone:"(719) 545-7325",address:"503 N Main, Suite 125, Pueblo, CO 81003",areas:["Corporate","Elder Law","Foreclosures","Landlord/Tenant","Mediation","Probate","Real Estate","Wills & Estate Planning"]},
+      {name:"Banner, Donald J.",phone:"719-544-5086",address:"115 E. Riverwalk Suite 400, Pueblo, CO 81003",areas:["Elder Law","Wills & Estate Planning"]},
+      {name:"Baumberger, Robert D.",phone:"(719) 281-3189",address:"309 South Union Ave., Pueblo, CO 81003",areas:["Personal Injury","Social Security","Workers Compensation"]},
+      {name:"Becker, Cobea",phone:"719-543-0700",address:"112 West D Street Suite 210-D, Pueblo, CO 81003",areas:["Adoption","Criminal","Family Law"]},
+      {name:"Boda, Teagan",phone:"(719) 543-7243",address:"1123 N. Elizabeth St., Pueblo, CO 81003",areas:["Adoption","Elder Law","Family Law","Landlord/Tenant","Probate","Wills & Estate Planning"]},
+      {name:"Bradley, Robert",phone:"719-542-8300",address:"311 W. 24th Street, Pueblo, CO 81003",areas:["Bankruptcy"]},
+      {name:"Briggs, Becky",phone:"(719) 924-9954",address:"2301 N. Greenwood, Pueblo, CO 81003",areas:["Criminal"]},
+      {name:"Brown, David",phone:"(719) 622-6196",address:"Pueblo, CO",areas:["Criminal","Family Law"]},
+      {name:"Brown, Shad",phone:"(719) 696-7560",address:"44 East Spalding, Bldg 2, Unit 1, Pueblo, CO 81007",areas:["Workers Compensation"]},
+      {name:"Callahan, Michael W.",phone:"(719) 542-1009",address:"215 West Second Street, Pueblo, CO 81003",areas:["Corporate","Elder Law","Foreclosures","Landlord/Tenant","Mediation","Probate","Real Estate","Wills & Estate Planning"]},
+      {name:"Drake, Elizabeth",phone:"719-275-4161",address:"City Attorney, Pueblo, CO",areas:["Criminal"]},
+      {name:"Esquibel, Charles D.",phone:"719-546-1188",address:"222 S Union Avenue, Pueblo, CO 81003",areas:["Criminal","Workers Compensation"]},
+      {name:"Gallegos, Mac",phone:"(719) 544-1200",address:"323 S. Union Avenue, Pueblo, CO 81003",areas:["Adoption","Bankruptcy","Family Law","Landlord/Tenant"]},
+      {name:"Garcia, Michael",phone:"719-542-9287",address:"1123 N. Elizabeth Street, Pueblo, CO 81003",areas:["Adoption","Civil Rights","Criminal","Family Law","Probate"]},
+      {name:"Geisel, Hank",phone:"(719) 543-7243",address:"1123 N. Elizabeth Street, Pueblo, CO 81003",areas:["Mediation"]},
+      {name:"Gradisar, Doug",phone:"719-566-8844",address:"1836 Vinewood, Suite 200, Pueblo, CO 81005",areas:["Probate"]},
+      {name:"Gutierrez, Aaron",phone:"",address:"",areas:["Immigration"]},
+      {name:"Hassler, Wes",phone:"719-544-2929",address:"616 W. Abriendo Ave., Pueblo, CO 81004",areas:["Adoption","Bankruptcy","Criminal","Family Law","Landlord/Tenant","Personal Injury","Social Security","Wills & Estate Planning","Workers Compensation"]},
+      {name:"Hearn, Kathleen K. (Ret. Judge)",phone:"719-564-3699",address:"1 Sepulveda Ct., Pueblo, CO 81005",areas:["Mediation"]},
+      {name:"Higginbotham, Larry K.",phone:"(719) 546-3800",address:"323 S. Union Ave., Pueblo, CO 81003",areas:["Bankruptcy","Landlord/Tenant"]},
+      {name:"Johnston, Stephen",phone:"719-544-2929",address:"616 W. Abriendo Ave., Pueblo, CO 81004",areas:["Personal Injury","Social Security","Workers Compensation"]},
+      {name:"Keilbach, John",phone:"(719) 545-7325",address:"503 N Main, Suite 125, Pueblo, CO 81003",areas:["Corporate","Elder Law","Landlord/Tenant","Personal Injury","Probate"]},
+      {name:"Koncilla & Koncilla",phone:"(719) 595-9591",address:"125 West B Street, Pueblo, CO 81003",areas:["Personal Injury"]},
+      {name:"Koveleski, Christine",phone:"719-225-8455",address:"329 Colorado Ave., Pueblo, CO 81004",areas:["Bankruptcy","Wills & Estate Planning"]},
+      {name:"Larson, Drake",phone:"(719) 621-1402",address:"503 N. Main Street Suite 539, Pueblo, CO 81003",areas:["Family Law"]},
+      {name:"Lundy, Rachael",phone:"719-543-8636",address:"402 W. 12th Street, Pueblo, CO 81003",areas:["Social Security"]},
+      {name:"Lytle, David",phone:"(719) 545-7323",address:"503 N Main, Suite 125, Pueblo, CO 81003",areas:["Corporate","Probate","Real Estate","Wills & Estate Planning"]},
+      {name:"Martin, Matthew Scott",phone:"720-402-3643",address:"5500 East Yale Ave., Suite 300, Denver, CO 80222",areas:["Civil Rights","Criminal"]},
+      {name:"McLeod, Shannon, Esq.",phone:"720-464-3600 Ext. 110",address:"4 W. Dry Creek Cir., Ste. 100, Littleton, CO 80120",areas:["Personal Injury"]},
+      {name:"McMillan, Linda",phone:"719-544-5081",address:"601 N. Main St., Suite 200, Pueblo, CO 81003",areas:["Corporate","Elder Law","Probate","Real Estate","Wills & Estate Planning"]},
+      {name:"Medina, Eric",phone:"719-920-6241",address:"635 W. Corona Ave. Ste. 214, Pueblo, CO 81004",areas:["Criminal","Family Law","Landlord/Tenant","Probate"]},
+      {name:"Midgley, Scott",phone:"719-543-9100",address:"1201 Court Street, Pueblo, CO 81003",areas:["Bankruptcy","Corporate","Foreclosures","Real Estate"]},
+      {name:"Morgan de Haro-Brown",phone:"719-377-2258",address:"201 W. 8th St. Ste. 860, Pueblo, CO 81003",areas:["Adoption","Immigration"]},
+      {name:"Oyen, Kendra",phone:"719-545-4490",address:"503 N. Main St. #422, Pueblo, CO 81003",areas:["Elder Law","Family Law","Probate"]},
+      {name:"Perko, Anthony",phone:"(719) 566-8844",address:"1836 Vinewood Lane, Suite 200, Pueblo, CO 81005",areas:["Elder Law","Employment","Landlord/Tenant","Probate","Wills & Estate Planning"]},
+      {name:"Piersel, Douglas",phone:"(719) 543-2040",address:"1311 North Greenwood Street, Pueblo, CO 81003",areas:["Corporate"]},
+      {name:"Reding, Richard",phone:"(303) 821-6032",address:"803 West 4th Street, Suite 803, Pueblo, CO 81003",areas:["Family Law"]},
+      {name:"Reed, Shannon",phone:"(719) 543-2040",address:"1311 North Greenwood Street, Pueblo, CO 81003",areas:["Corporate"]},
+      {name:"Roepke, Kimberly J.",phone:"(719) 375-1414",address:"215 West 2nd Street, Pueblo, CO 81003",areas:["Social Security","Workers Compensation"]},
+      {name:"Roth, David",phone:"719-566-8844",address:"1836 Vinewood, Suite 200, Pueblo, CO 81005",areas:["Personal Injury","Probate","Wills & Estate Planning"]},
+      {name:"Schultz, Adam",phone:"(719) 542-9559",address:"211 West Abriendo, Pueblo, CO 81004",areas:["Corporate","Criminal","Landlord/Tenant","Mediation","Personal Injury","Probate","Wills & Estate Planning"]},
+      {name:"Seckar, Michael",phone:"719-543-8636",address:"2904 Hart Rd, Pueblo, CO 81008",areas:["Social Security"]},
+      {name:"Shafer, Kate",phone:"(719) 566-8844",address:"1836 Vinewood, Suite 200, Pueblo, CO 81005",areas:["Family Law"]},
+      {name:"Smith, Adam",phone:"719-544-0062",address:"Smith & Smith Attorneys, 104 Garfield St., Pueblo, CO 81004",areas:["Personal Injury","Premises Liability","Medical Malpractice","Insurance Bad Faith","Construction Law"]},
+      {name:"Smith, Mickey W.",phone:"719-544-0062",address:"Smith & Smith Attorneys, 104 Garfield St., Pueblo, CO 81004",areas:["Personal Injury","Premises Liability","Insurance Bad Faith"]},
+      {name:"Staples, Sarah",phone:"719-214-3051",address:"1123 N. Elizabeth Street, Pueblo, CO 81003",areas:["Family Law"]},
+      {name:"Sternal, Lee",phone:"719-545-9746",address:"414 W. 9th St., Pueblo, CO 81003",areas:["Administrative Abuse","Consumer","Insurance Bad Faith","Medical Malpractice","Personal Injury","Product Liability"]},
+      {name:"Striegel, Matt",phone:"719-544-2644",address:"332 Broadway Ave., Pueblo, CO 81004",areas:["Personal Injury","Workers Compensation"]},
+      {name:"Talbot, Stephen R.",phone:"(719) 543-0700",address:"112 W D St Suite 210-D, Pueblo, CO 81003",areas:["Wills & Estate Planning"]},
+      {name:"Turner, Christopher",phone:"719-924-8719",address:"1074 Eagleridge Blvd, Pueblo, CO 81008",areas:["Family Law","Personal Injury"]},
+      {name:"Williams, Keri",phone:"719-543-0700",address:"503 N Main, Suite 300, Pueblo, CO 81003",areas:["Family Law"]},
+      {name:"Young, Laura (Kat)",phone:"(719) 545-7325",address:"501 N Main Suite 125, Pueblo, CO 81005",areas:["Corporate","Elder Law","Probate","Real Estate","Wills & Estate Planning"]},
+      {name:"Zamarrippa, Jennifer",phone:"(719) 924-8719",address:"1074 Eagleridge Blvd, Pueblo, CO 81008",areas:["Adoption","Criminal","Family Law","Probate","Wills & Estate Planning"]},
+      {name:"Zeisler, Carol",phone:"719-358-2571",address:"123 W. 12th Street, Pueblo, CO 81003",areas:["Personal Injury"]}
+    ];
+
+    function initials(name) {
+      const parts = name.replace(/[^a-zA-Z\s,]/g,'').split(/[\s,]+/).filter(Boolean);
+      return parts.length >= 2 ? (parts[0][0]+parts[1][0]).toUpperCase() : parts[0].slice(0,2).toUpperCase();
+    }
+
+    function filterLawyers(area, el) {
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      const grid = document.getElementById('lawyersGrid');
+      if (area === 'all') {
+        grid.style.display = 'none';
+        grid.innerHTML = '';
+        return;
+      }
+      const list = ATTORNEYS.filter(a => a.areas.includes(area));
+      grid.style.display = 'grid';
+      grid.innerHTML = list.map(a => `
+        <div class="lawyer-card">
+          <div class="lawyer-avatar">${initials(a.name)}</div>
+          <div class="lawyer-name">${a.name}</div>
+          <div class="lawyer-firm">${a.address || 'Pueblo, CO'}</div>
+          <div class="lawyer-tags">${a.areas.map(ar => `<span class="lawyer-tag">${ar}</span>`).join('')}</div>
+          <div class="lawyer-contact">
+            <span>${a.phone || 'Contact for info'}</span>
+            ${a.phone ? `<a href="tel:${a.phone.replace(/\D/g,'')}">${a.phone}</a>` : ''}
+          </div>
+        </div>`).join('');
+    }
     function toggleMenu() {
       document.getElementById('menuToggle').classList.toggle('open');
       document.getElementById('navDrawer').classList.toggle('open');
